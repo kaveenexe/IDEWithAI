@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 mongoose.set('strictQuery', false);
 const dbConnect = ()=>{
     const connectionParams = { useNewUrlParser: true, useUnifiedTopology: true };
@@ -21,4 +21,4 @@ const dbConnect = ()=>{
     });
 };
 
-export default dbConnect;
+module.exports = dbConnect;
