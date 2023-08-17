@@ -2,9 +2,18 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
+const dbConnect = require("./dbConnect");
+const {config} = require ("dotenv");
 const UserModel = require("./models/user");
+
 app.use(cors());
 app.use(express.json());
+
+
+//allows us access environment variables like dotenv files
+config();
+
+dbConnect();
 
 app.post("/api/register", async (req, res) => {
   console.log(req.body);
