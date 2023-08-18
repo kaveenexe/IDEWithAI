@@ -1,81 +1,58 @@
-import { React, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+import { useState } from "react";
 
-function Register() {
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
+const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
 
-  async function registerUser(event) {
-    event.preventDefault()
-    const response = await fetch("http://localhost:5000/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fname: fname,
-        lname: lname,
-        email: email,
-        password: password,
-    })
-  })
-  const data = await response.json()
-  console.log(data)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(email, password, fname, lname);
   }
 
   return (
-    <div>
-      <Form onSubmit={registerUser}>
-        <Row>
-          <Col>
-            <Form.Label>First Name</Form.Label>
-            <Form.Control  
-            value={fname}
-            onChange={(e) => setFname(e.target.value)}
-            placeholder="First name"
-            />
-            
-          </Col>
-          <Col>
-            <Form.Label>Last Name</Form.Label>
-            <Form.Control placeholder="Last name" 
-            value={lname}
-            onChange={(e) => setLname(e.target.value)}
-            />
-            
-          </Col>
-        </Row>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" 
-          value={email}
+    <>
+      <form className="signup" onSubmit={handleSubmit}>
+        <h3>Sign Up</h3>
+
+        <label htmlFor="">First Name: </label>
+        <input
+          type="first name"
+          placeholder="Enter your first name"
+          onChange={(e) => setFname(e.target.value)}
+          value={fname}
+        /> <br />
+
+        <label htmlFor="">Last Name: </label>
+        <input
+          type="last name"
+          placeholder="Enter your last name"
+          onChange={(e) => setLname(e.target.value)}
+          value={lname}
+        /><br />
+
+
+        <label htmlFor="">Email: </label>
+        <input
+          type="email"
+          placeholder="Enter email"
           onChange={(e) => setEmail(e.target.value)}
-          />
-          
-        </Form.Group>
+          value={email}
+        /><br />
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" 
-          value={password}
+        <label htmlFor="">Password: </label>
+        <input
+          type="Password"
+          placeholder="Enter your password"
           onChange={(e) => setPassword(e.target.value)}
-          />
-          
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Register
-        </Button>
-      </Form>
-    </div>
-  );
-}
+          value={password}
+        /><br />
 
-export default Register;
+        <button>Register</button>
+      </form>
+    </>
+  )
+}
+export default Signup;
