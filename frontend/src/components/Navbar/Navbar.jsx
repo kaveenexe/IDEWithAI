@@ -4,9 +4,11 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { useLogout } from "../../hooks/useLogout";
 import "./Navbar.css";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function ContainerInsideExample() {
   const { logout } = useLogout();
+  const { user } = useAuthContext();
 
   const handleClick = () => {
     logout();
@@ -19,17 +21,22 @@ function ContainerInsideExample() {
           DevMind
         </Navbar.Brand>
         <Nav className="justify-content-end">
-          <div>
-            <Button onClick={handleClick}>Log Out</Button>
-          </div>
-          <div>
-            <Nav.Link href="#features" className="navbar_font">
-              Register
-            </Nav.Link>
-            <Nav.Link href="#pricing" className="navbar_font">
-              login
-            </Nav.Link>
-          </div>
+          {user && (
+            <div className="navbar_font">
+              <span>{user.email}</span>
+              <Button onClick={handleClick}>Log Out</Button>
+            </div>
+          )}
+          {!user && (
+            <div>
+              <Nav.Link href="#features" className="navbar_font">
+                Register
+              </Nav.Link>
+              <Nav.Link href="#pricing" className="navbar_font">
+                login
+              </Nav.Link>
+            </div>
+          )}
         </Nav>
       </Container>
     </Navbar>
