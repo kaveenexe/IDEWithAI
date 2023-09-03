@@ -29,10 +29,10 @@ function ContainerInsideExample() {
           )}
           {!user && (
             <div>
-              <Nav.Link href="#features" className="navbar_font">
+              <Nav.Link href="/register" className="navbar_font">
                 Register
               </Nav.Link>
-              <Nav.Link href="#pricing" className="navbar_font">
+              <Nav.Link href="/login" className="navbar_font">
                 login
               </Nav.Link>
             </div>
