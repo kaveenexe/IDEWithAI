@@ -15,9 +15,9 @@ function ContainerInsideExample() {
   };
 
   return (
-    <Navbar bg="dark" data-bs-theme="dark">
+    <Navbar bg="primary" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand href="#home" className="navbar_font">
+        <Navbar.Brand href="/" className="navbar_font">
           DevMind
         </Navbar.Brand>
         <Nav className="justify-content-end">
@@ -28,7 +28,7 @@ function ContainerInsideExample() {
             </div>
           )}
           {!user && (
-            <div>
+            <div className="d-flex">
               <Nav.Link href="/register" className="navbar_font">
                 Register
               </Nav.Link>
