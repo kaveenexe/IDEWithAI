@@ -1,0 +1,33 @@
+.upper_container{
+    margin: 25px 0 20px 0;
+}
+
+.language_label {
+    width: 225px;
+    display: flex;
+}
+
+.language_name{
+    margin: 5px 0 3px 20px;
+}
+
+.run_btn{
+    padding: 0 25px 0 25px;
+}
+
+.console_container{
+    border-radius: 75px;
+    margin: 0 10px 0 0 ;
+}
+
+.output_container {
+  height: 450px;
+  width: 700px;
+  margin: 0 0 0 10px;
+}
+
+.output_p {
+    border-radius: 5px 5px 0 0;
+    background-color: #dadada;
+    padding : 5px;
+}
