@@ -4,7 +4,7 @@ import Register from "./pages/Register&Login/Register";
 import Login from "./pages/Register&Login/login";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/home";
-import IDE from "./pages/IDE/Ide";
+import IDE from "./pages/IDE/CodeEditor";
 import "./App.css";
 
 function App() {
