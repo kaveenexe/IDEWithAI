@@ -4,7 +4,7 @@ const cors = require("cors");
 const dbConnect = require("./dbConnect");
 const {config} = require ("dotenv");
 const userRoutes = require("./routes/user");
-
+const codeRoutes = require("./routes/codeRoutes")
 
 app.use(cors());
 app.use(express.json());
@@ -17,6 +17,9 @@ dbConnect();
 
 //routes
 app.use("/api/user", userRoutes);
+
+//IDE
+app.use("/api/ide", codeRoutes);
 
 app.listen(5000, () => {
   console.log("Server is running on port 5000.");
