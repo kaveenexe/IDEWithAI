@@ -21,9 +21,13 @@ const CodeEditor = () => {
     newIframe.style.display = "none";
     document.body.appendChild(newIframe);
 
+    let aggregatedOutput = ""; // Initialize an empty output
+
     newIframe.contentWindow.console = {
       log: (...args) => {
-        setOutput(args.join(" ") + "\n");
+        // Accumulate the output
+        aggregatedOutput += args.join(" ") + "\n";
+        setOutput(aggregatedOutput);
       },
     };
 
