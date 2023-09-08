@@ -22,6 +22,9 @@ function UserDashboard() {
                 <Nav.Item>
                   <Nav.Link eventKey="second">Notifications</Nav.Link>
                 </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="third">Invitaions</Nav.Link>
+                </Nav.Item>
               </Nav>
             </Col>
             <Col sm={9}>
@@ -33,6 +36,12 @@ function UserDashboard() {
                   sapiente nobis, iure possimus nesciunt quidem?
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Ratione exercitationem, temporibus sequi consequuntur adipisci
+                  recusandae molestias officiis doloribus dicta praesentium fuga
+                  aut, minus doloremque. Quidem odit quia iusto est voluptatem.
+                </Tab.Pane>
+                <Tab.Pane eventKey="third">
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                   Ratione exercitationem, temporibus sequi consequuntur adipisci
                   recusandae molestias officiis doloribus dicta praesentium fuga
