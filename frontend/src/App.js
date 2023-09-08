@@ -5,7 +5,6 @@ import Login from "./pages/Register&Login/login";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/home";
 import IDE from "./pages/IDE/CodeEditor";
-import UserDB from "./pages/UserDB/Dashboard";
 import "./App.css";
 
 function App() {
@@ -22,7 +21,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />} />
           <Route path="/code-editor" element={<IDE />} />
-          <Route path="/dashboard" element={<UserDB />} />
         </Routes>
       </BrowserRouter>
     </div>
