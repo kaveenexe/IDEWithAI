@@ -6,9 +6,11 @@ import Tab from "react-bootstrap/Tab";
 function UserDashboard() {
   return (
     <div className="db_container">
-        <div className="dbtitle_container bg-dark w-100 h-50 p-5">
-            <h1 className="dbtitle text-white d-flex justify-content-center pt-5 pb-5">User Dashboard</h1>
-        </div>
+      <div className="dbtitle_container bg-dark w-100 h-50 p-5">
+        <h1 className="dbtitle text-white d-flex justify-content-center pt-5 pb-5">
+          User Dashboard
+        </h1>
+      </div>
       <div className="justify-content-center container align-items-center mt-5">
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
           <Row>
@@ -25,9 +27,10 @@ function UserDashboard() {
             <Col sm={9}>
               <Tab.Content>
                 <Tab.Pane eventKey="first">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Necessitatibus non ipsam magnam neque cum nemo labore rerum
-                  architecto saepe quidem!
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Ratione, nesciunt? Blanditiis ratione pariatur officiis saepe
+                  iste, incidunt iusto voluptatum, quo eos officia aliquam sed
+                  sapiente nobis, iure possimus nesciunt quidem?
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit.
