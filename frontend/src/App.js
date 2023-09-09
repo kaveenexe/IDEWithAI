@@ -1,8 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Register from "./pages/Register&Login/Register";
+import Register from "./pages/Register&Login/register";
 import Login from "./pages/Register&Login/login";
 import Navbar from "./components/Navbar/Navbar";
+import Filemanager from "./components/Filemanager/Filemanager";
 import Home from "./pages/Home/home";
 import IDE from "./pages/IDE/CodeEditor";
 import UserDB from "./pages/UserDB/Dashboard"
@@ -15,7 +16,7 @@ function App() {
 
       {/* Navbar Hear */}
         <Navbar/>
-
+        <Filemanager/>
         {/* Routes Hear */}
         <Routes>
           <Route path="/register" element={<Register />} />
