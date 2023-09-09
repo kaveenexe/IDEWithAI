@@ -35,6 +35,9 @@ function ContainerInsideExample() {
               <Nav.Link href="/login" className="navbar_font">
                 login
               </Nav.Link>
+              <Nav.Link href="/dashboard" className="navbar_font">
+                Dashboard
+              </Nav.Link>
             </div>
           )}
         </Nav>
