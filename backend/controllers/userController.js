@@ -43,4 +43,69 @@ const signupUser = async (req, res) => {
   }
 };
 
-module.exports = { loginUser, signupUser };
+// Get user by ID
+const getUserById = async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json(user); // Return the user data
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// Get user by email
+const getUserByEmail = async (req, res) => {
+  const userEmail = req.params.email;
+
+  try {
+    const user = await User.findOne({ email: userEmail });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json(user); // Return the user data
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// Get user by first name
+const getUserByFname = async (req, res) => {
+  const userFname = req.params.fname;
+
+  try {
+    const user = await User.findOne({ fname: userFname });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json(user); // Return the user data
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// Get all users
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users); // Return an array of all users
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = {
+  loginUser,
+  signupUser,
+  getUserById,
+  getUserByEmail,
+  getUserByFname,
+  getAllUsers,
+};

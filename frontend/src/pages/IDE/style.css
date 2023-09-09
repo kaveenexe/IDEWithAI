@@ -11,8 +11,18 @@
   margin: 5px 0 3px 20px;
 }
 
+
 .run_btn {
   padding: 0 25px 0 25px;
+
+.run_btn{
+    margin-right: 10px;
+}
+
+.btn_invite{
+    padding: 0 25px 0 20px;
+    margin-right: -840px;
+
 }
 
 .console_container {
@@ -27,6 +37,7 @@
 }
 
 .output_p {
+
   border-radius: 5px 5px 0 0;
   background-color: #dadada;
   padding: 5px;
@@ -47,4 +58,17 @@
 .explain_btn {
   margin: 10px 0 0 0;
   height: 50px;
+
+}
+
+.search-bar-container {
+  margin-bottom: 15px;
+  display: grid;
+  background-color: #ebeff3;
+  border-radius: 10px;
+  padding: 0.1rem 1.5rem;
+  height: 2.5rem;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
