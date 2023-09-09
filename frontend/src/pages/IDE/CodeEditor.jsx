@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
-import { PlayFill, SaveFill, PersonPlusFill } from "react-bootstrap-icons";
+import { Spinner } from "react-bootstrap";
+import { PlayFill, SaveFill, PersonPlusFill, Robot } from "react-bootstrap-icons";
 import axios from "axios";
+
 import Button from "react-bootstrap/Button";
 import "./style.css";
 import Form from "react-bootstrap/Form";
@@ -14,7 +16,10 @@ import { SearchResultsList } from "../../components/Searchbar/SearchResultsList"
 const CodeEditor = () => {
   const [output, setOutput] = useState("");
   const [code, setCode] = useState('console.log("Hello, world!");');
-  const [iframe, setIframe] = useState(null);
+
+  const [userContent, setUserContent] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [iframe, setIframe] = useState(null); // Keep track of the iframe
 
   //Invitation Model
   const [show, setShow] = useState(false);
@@ -29,6 +34,7 @@ const CodeEditor = () => {
   const handleUserSelect = (email) => {
     setSelectedUserEmail(email);
   };
+
 
   const handleRunClick = () => {
     // Remove the previous iframe (if it exists)
@@ -72,10 +78,44 @@ const CodeEditor = () => {
       });
   };
 
+  const handleAIExplain = () => {
+    const USER_PROMPT = `Code:${code}`;
+
+    if (code.trim() === "") {
+      alert("Please write some code first!");
+      return;
+    } else {
+      setIsLoading((prev) => !prev);
+
+      fetch("http://localhost:5000/api/mentor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userContent: {
+            role: "user",
+            content: USER_PROMPT,
+          },
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setUserContent(data.text);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setIsLoading((prev) => !prev);
+        });
+    }
+  };
+
   return (
     <div className="container justify-content-center">
       <div className="codeeditor_maincontainer ">
-        <div className="upper_container d-flex justify-content-between">
+      <div className="upper_container d-flex justify-content-between">
           <div className="language_label bg-light rounded-3 mt-2 mb-2 border border-3">
             <p className="language_name">Language: Javascript</p>
           </div>
@@ -156,6 +196,20 @@ const CodeEditor = () => {
             <pre className="output_pre">{output}</pre>
           </div>
         </div>
+        {isLoading ? (
+          <button className="btn btn-primary run_btn explain_btn">
+            <Spinner animation="border" role="status" />
+          </button>
+        ) : (
+          <button
+            className="btn btn-primary run_btn explain_btn"
+            onClick={handleAIExplain}
+          >
+            Explain <Robot />
+          </button>
+        )}
+
+        <div className="ai-suggestions">{userContent}</div>
       </div>
     </div>
   );
