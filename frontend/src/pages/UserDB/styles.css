@@ -1,0 +1,6 @@
+.background {
+  background-image: url("../../images/software-dev.jpg");
+  background-size: cover;
+  min-height: 50vh;
+  background-position: center;
+}

@@ -2,14 +2,15 @@ import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
+import "./styles.css";
 
 function UserDashboard() {
   return (
     <div className="db_container">
-      <div className="dbtitle_container bg-dark w-100 h-50 p-5">
-        <h1 className="dbtitle text-white d-flex justify-content-center pt-5 pb-5">
+      <div className="background">
+        {/* <h1 className="dbtitle text-white d-flex justify-content-center pt-5 pb-5">
           User Dashboard
-        </h1>
+        </h1> */}
       </div>
       <div className="justify-content-center container align-items-center mt-5">
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
