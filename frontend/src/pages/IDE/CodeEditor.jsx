@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
-import { PlayFill, PersonPlusFill } from "react-bootstrap-icons";
+import { PlayFill, SaveFill, PersonPlusFill } from "react-bootstrap-icons";
+import axios from "axios";
+
 import "./style.css";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { SearchBar } from "../../components/Searchbar/SearchBar";
@@ -13,7 +14,7 @@ import { SearchResultsList } from "../../components/Searchbar/SearchResultsList"
 const CodeEditor = () => {
   const [output, setOutput] = useState("");
   const [code, setCode] = useState('console.log("Hello, world!");');
-  const [iframe, setIframe] = useState(null); // Keep track of the iframe
+  const [iframe, setIframe] = useState(null);
 
   //Invitation Model
   const [show, setShow] = useState(false);
@@ -30,6 +31,7 @@ const CodeEditor = () => {
   };
 
   const handleRunClick = () => {
+
     // Remove the previous iframe (if it exists)
     if (iframe) {
       document.body.removeChild(iframe);
@@ -55,7 +57,20 @@ const CodeEditor = () => {
 
     newIframe.contentDocument.body.appendChild(script);
 
-    setIframe(newIframe); // Set the new iframe in the state
+    setIframe(newIframe);
+  };
+
+  const handleSaveClick = () => {
+    axios
+      .post("http://localhost:5000/api/ide/save-code", { code })
+      .then((response) => {
+        console.log("Code saved successfully!");
+        // Optionally, you can clear the code editor here
+        // setCode('');
+      })
+      .catch((error) => {
+        console.error("Error saving code:", error);
+      });
   };
 
   return (
@@ -65,12 +80,19 @@ const CodeEditor = () => {
           <div className="language_label bg-light rounded-3 mt-2 mb-2 border border-3">
             <p className="language_name">Language: Javascript</p>
           </div>
-          <Button className="btn_invite" variant="light" onClick={handleShow}>
+
+          <div>
+          <button className="btn btn-outline-dark btn_invite" variant="light" onClick={handleShow}>
             Invite <PersonPlusFill />
-          </Button>
-          <button className="btn btn-primary run_btn" onClick={handleRunClick}>
-            Run <PlayFill />
           </button>
+            <button className="btn btn-primary run_btn" onClick={handleRunClick}>
+              Run <PlayFill />
+            </button>
+            <button className="btn btn-success save_btn" onClick={handleSaveClick}>
+              Save <SaveFill />
+            </button>
+          </div>
+
         </div>
         <div>
           <Modal show={show} onHide={handleClose}>
