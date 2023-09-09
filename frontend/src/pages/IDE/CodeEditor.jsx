@@ -4,7 +4,7 @@ import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
 import { PlayFill, SaveFill, PersonPlusFill } from "react-bootstrap-icons";
 import axios from "axios";
-
+import Button from "react-bootstrap/Button";
 import "./style.css";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -24,14 +24,13 @@ const CodeEditor = () => {
   //Handle API Call Users
   const [results, setResults] = useState([]);
 
-  const [ selectedUserEmail, setSelectedUserEmail ] = useState( "" );
-  
+  const [selectedUserEmail, setSelectedUserEmail] = useState("");
+
   const handleUserSelect = (email) => {
     setSelectedUserEmail(email);
   };
 
   const handleRunClick = () => {
-
     // Remove the previous iframe (if it exists)
     if (iframe) {
       document.body.removeChild(iframe);
@@ -82,17 +81,26 @@ const CodeEditor = () => {
           </div>
 
           <div>
-          <button className="btn btn-outline-dark btn_invite" variant="light" onClick={handleShow}>
-            Invite <PersonPlusFill />
-          </button>
-            <button className="btn btn-primary run_btn" onClick={handleRunClick}>
+            <button
+              className="btn btn-outline-dark btn_invite"
+              variant="light"
+              onClick={handleShow}
+            >
+              Invite <PersonPlusFill />
+            </button>
+            <button
+              className="btn btn-primary run_btn"
+              onClick={handleRunClick}
+            >
               Run <PlayFill />
             </button>
-            <button className="btn btn-success save_btn" onClick={handleSaveClick}>
+            <button
+              className="btn btn-success save_btn"
+              onClick={handleSaveClick}
+            >
               Save <SaveFill />
             </button>
           </div>
-
         </div>
         <div>
           <Modal show={show} onHide={handleClose}>
