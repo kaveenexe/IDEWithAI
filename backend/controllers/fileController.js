@@ -1,5 +1,5 @@
 // controllers/fileController.js
-const File = require('../model/filemodel');
+const File = require('../models/filemodel');
 
 // Create a new file
 exports.createFile = async (req, res) => {

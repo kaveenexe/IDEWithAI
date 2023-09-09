@@ -3,6 +3,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
 import { PlayFill, SaveFill } from "react-bootstrap-icons";
+import Filemanager from "../../components/Filemanager/Filemanager";
 import axios from "axios";
 
 import "./style.css";
@@ -56,6 +57,8 @@ const CodeEditor = () => {
   };
 
   return (
+    <>
+    <Filemanager/>
     <div className="container justify-content-center">
       <div className="codeeditor_maincontainer ">
         <div className="upper_container d-flex justify-content-between">
@@ -81,7 +84,7 @@ const CodeEditor = () => {
               extensions={[javascript({ jsx: true })]}
               onChange={(value) => setCode(value)}
               theme={dracula}
-            />
+              />
           </div>
 
           <div className="output_container bg-light rounded">
@@ -91,6 +94,7 @@ const CodeEditor = () => {
         </div>
       </div>
     </div>
+              </>
   );
 };
 
