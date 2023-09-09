@@ -1,23 +1,23 @@
-.upper_container{
-    margin: 25px 0 20px 0;
+.upper_container {
+  margin: 25px 0 20px 0;
 }
 
 .language_label {
-    width: 225px;
-    display: flex;
+  width: 225px;
+  display: flex;
 }
 
-.language_name{
-    margin: 5px 0 3px 20px;
+.language_name {
+  margin: 5px 0 3px 20px;
 }
 
-.run_btn{
-    padding: 0 25px 0 25px;
+.run_btn {
+  padding: 0 25px 0 25px;
 }
 
-.console_container{
-    border-radius: 75px;
-    margin: 0 10px 0 0 ;
+.console_container {
+  border-radius: 75px;
+  margin: 0 10px 0 0;
 }
 
 .output_container {
@@ -27,7 +27,24 @@
 }
 
 .output_p {
-    border-radius: 5px 5px 0 0;
-    background-color: #dadada;
-    padding : 5px;
+  border-radius: 5px 5px 0 0;
+  background-color: #dadada;
+  padding: 5px;
+}
+
+.ai-suggestions {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  width: 100%;
+  min-height: 100px;
+  background-color: #0dcaf0;
+  color: white;
+  padding: 20px;
+  text-align: justify;
+}
+
+.explain_btn {
+  margin: 10px 0 0 0;
+  height: 50px;
 }

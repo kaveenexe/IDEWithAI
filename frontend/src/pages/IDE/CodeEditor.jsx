@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
-import { PlayFill } from "react-bootstrap-icons";
+import { PlayFill, Robot } from "react-bootstrap-icons";
+import { Spinner } from "react-bootstrap";
 import "./style.css";
 
 const CodeEditor = () => {
   const [output, setOutput] = useState("");
   const [code, setCode] = useState('console.log("Hello, world!");');
+  const [userContent, setUserContent] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [iframe, setIframe] = useState(null); // Keep track of the iframe
 
   const handleRunClick = () => {
@@ -33,6 +36,40 @@ const CodeEditor = () => {
     newIframe.contentDocument.body.appendChild(script);
 
     setIframe(newIframe); // Set the new iframe in the state
+  };
+
+  const handleAIExplain = () => {
+    const USER_PROMPT = `Code:${code}`;
+
+    if (code.trim() === "") {
+      alert("Please write some code first!");
+      return;
+    } else {
+      setIsLoading((prev) => !prev);
+
+      fetch("http://localhost:5000/api/mentor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userContent: {
+            role: "user",
+            content: USER_PROMPT,
+          },
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setUserContent(data.text);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setIsLoading((prev) => !prev);
+        });
+    }
   };
 
   return (
@@ -64,6 +101,20 @@ const CodeEditor = () => {
             <pre className="output_pre">{output}</pre>
           </div>
         </div>
+        {isLoading ? (
+          <button className="btn btn-primary run_btn explain_btn">
+            <Spinner animation="border" role="status" />
+          </button>
+        ) : (
+          <button
+            className="btn btn-primary run_btn explain_btn"
+            onClick={handleAIExplain}
+          >
+            Explain <Robot />
+          </button>
+        )}
+
+        <div className="ai-suggestions">{userContent}</div>
       </div>
     </div>
   );
