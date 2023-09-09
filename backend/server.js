@@ -33,7 +33,7 @@ app.use("/api/feedback", feedbackRoutes);
 //Invitation
 app.use("/api/invitation", inviteRoutes);
 
-app.listen(8080, () => {
-  console.log("Server is running on port 8080.");
+app.listen(5000, () => {
+  console.log("Server is running on port 5000.");
 });
 
