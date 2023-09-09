@@ -10,7 +10,7 @@ export const SearchBar = ({ setResults, selectedUserEmail }) => {
   }, [selectedUserEmail]);
 
   const fetchData = (value) => {
-    fetch("http://localhost:8080/api/user")
+    fetch("http://localhost:5000/api/user")
       .then((response) => response.json())
       .then((json) => {
         const results = json.filter((user) => {
