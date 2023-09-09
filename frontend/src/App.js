@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./pages/Register&Login/register";
 import Login from "./pages/Register&Login/login";
 import Navbar from "./components/Navbar/Navbar";
+
 import Home from "./pages/Home/home";
 import IDE from "./pages/IDE/CodeEditor";
 import UserDB from "./pages/UserDB/Dashboard"
@@ -15,7 +16,7 @@ function App() {
 
       {/* Navbar Hear */}
         <Navbar/>
-
+       
         {/* Routes Hear */}
         <Routes>
           <Route path="/register" element={<Register />} />

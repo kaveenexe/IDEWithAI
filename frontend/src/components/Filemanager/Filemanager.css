@@ -1,0 +1,9 @@
+.main{
+    width: 250px; /* Adjust the width as needed */
+    height: 74vh; /* Make it take full height of the page */
+    background-color: #e3d7d7; /* Add a background color for the left panel */
+    float: left; /* Align to the left */
+    padding: 20px; /* Add padding for spacing */
+    border-radius: 5px;
+    margin: 10px;
+}

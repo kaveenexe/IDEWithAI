@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
+
+
+import Filemanager from "../../components/Filemanager/Filemanager";
+
 import { Spinner } from "react-bootstrap";
 import { PlayFill, SaveFill, PersonPlusFill, Robot } from "react-bootstrap-icons";
+
 import axios from "axios";
 
 import Button from "react-bootstrap/Button";
@@ -113,6 +118,8 @@ const CodeEditor = () => {
   };
 
   return (
+    <>
+    <Filemanager/>
     <div className="container justify-content-center">
       <div className="codeeditor_maincontainer ">
       <div className="upper_container d-flex justify-content-between">
@@ -188,7 +195,7 @@ const CodeEditor = () => {
               extensions={[javascript({ jsx: true })]}
               onChange={(value) => setCode(value)}
               theme={dracula}
-            />
+              />
           </div>
 
           <div className="output_container bg-light rounded">
@@ -212,6 +219,7 @@ const CodeEditor = () => {
         <div className="ai-suggestions">{userContent}</div>
       </div>
     </div>
+              </>
   );
 };
 
