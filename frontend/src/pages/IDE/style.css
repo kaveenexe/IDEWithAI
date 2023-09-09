@@ -1,4 +1,4 @@
-.upper_container {
+.upper_container{
   margin: 25px 0 20px 0;
 }
 
@@ -7,68 +7,48 @@
   display: flex;
 }
 
-.language_name {
+.language_name{
   margin: 5px 0 3px 20px;
 }
 
-
-.run_btn {
-  padding: 0 25px 0 25px;
-
 .run_btn{
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .btn_invite{
-    padding: 0 25px 0 20px;
-    margin-right: -840px;
-
+  margin-right: 10px;
 }
 
-.console_container {
+.explain_btn{
+  margin-top: 10px;
+}
+
+.console_container{
   border-radius: 75px;
-  margin: 0 10px 0 0;
+  margin: 0 10px 0 0 ;
 }
 
 .output_container {
-  height: 450px;
-  width: 700px;
-  margin: 0 0 0 10px;
+height: 450px;
+width: 700px;
+margin: 0 0 0 10px;
 }
 
 .output_p {
-
   border-radius: 5px 5px 0 0;
   background-color: #dadada;
-  padding: 5px;
-}
-
-.ai-suggestions {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  width: 100%;
-  min-height: 100px;
-  background-color: #0dcaf0;
-  color: white;
-  padding: 20px;
-  text-align: justify;
-}
-
-.explain_btn {
-  margin: 10px 0 0 0;
-  height: 50px;
+  padding : 5px;
 
 }
 
 .search-bar-container {
-  margin-bottom: 15px;
-  display: grid;
-  background-color: #ebeff3;
-  border-radius: 10px;
-  padding: 0.1rem 1.5rem;
-  height: 2.5rem;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+margin-bottom: 15px;
+display: grid;
+background-color: #ebeff3;
+border-radius: 10px;
+padding: 0.1rem 1.5rem;
+height: 2.5rem;
+flex-direction: column;
+align-items: center;
+width: 100%;
 }

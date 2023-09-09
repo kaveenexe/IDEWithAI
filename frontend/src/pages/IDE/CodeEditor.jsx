@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
-
-import { PlayFill, Robot } from "react-bootstrap-icons";
 import { Spinner } from "react-bootstrap";
-
-import { PlayFill, SaveFill, PersonPlusFill } from "react-bootstrap-icons";
+import { PlayFill, SaveFill, PersonPlusFill, Robot } from "react-bootstrap-icons";
 import axios from "axios";
 
-
+import Button from "react-bootstrap/Button";
 import "./style.css";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -23,8 +20,6 @@ const CodeEditor = () => {
   const [userContent, setUserContent] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [iframe, setIframe] = useState(null); // Keep track of the iframe
-
-  const [iframe, setIframe] = useState(null);
 
   //Invitation Model
   const [show, setShow] = useState(false);
@@ -121,7 +116,7 @@ const CodeEditor = () => {
   return (
     <div className="container justify-content-center">
       <div className="codeeditor_maincontainer ">
-        <div className="upper_container d-flex justify-content-between">
+      <div className="upper_container d-flex justify-content-between">
           <div className="language_label bg-light rounded-3 mt-2 mb-2 border border-3">
             <p className="language_name">Language: Javascript</p>
           </div>
