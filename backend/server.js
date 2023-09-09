@@ -4,9 +4,13 @@ const cors = require("cors");
 const dbConnect = require("./dbConnect");
 const { config } = require("dotenv");
 const userRoutes = require("./routes/user");
+
+const mentorRoutes = require("./routes/mentorRoutes");
+
 const codeRoutes = require( "./routes/codeRoutes" );
 const feedbackRoutes = require( "./routes/feedbackRoutes" );
 const inviteRoutes = require("./routes/inviteRoutes");
+
 
 app.use(cors());
 app.use(express.json());
@@ -18,6 +22,7 @@ dbConnect();
 
 //User 
 app.use("/api/user", userRoutes);
+app.use("/api/mentor", mentorRoutes);
 
 //IDE
 app.use( "/api/ide", codeRoutes );
