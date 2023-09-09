@@ -2,25 +2,33 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const dbConnect = require("./dbConnect");
-const {config} = require ("dotenv");
+const { config } = require("dotenv");
 const userRoutes = require("./routes/user");
-const codeRoutes = require("./routes/codeRoutes")
+const codeRoutes = require( "./routes/codeRoutes" );
+const feedbackRoutes = require( "./routes/feedbackRoutes" );
+const inviteRoutes = require("./routes/inviteRoutes");
 
 app.use(cors());
 app.use(express.json());
-
 
 //allows us access environment variables like dotenv files
 config();
 
 dbConnect();
 
-//routes
+//User 
 app.use("/api/user", userRoutes);
 
 //IDE
-app.use("/api/ide", codeRoutes);
+app.use( "/api/ide", codeRoutes );
 
-app.listen(5000, () => {
-  console.log("Server is running on port 5000.");
+//Feedback
+app.use("/api/feedback", feedbackRoutes);
+
+//Invitation
+app.use("/api/invitation", inviteRoutes);
+
+app.listen(8080, () => {
+  console.log("Server is running on port 8080.");
 });
+
