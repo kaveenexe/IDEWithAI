@@ -18,6 +18,13 @@ const Filemanager = () => {
       .catch((error) => console.error("Error fetching files:", error));
   }, [files]);
 
+  const handleFileClick = (fileId) => {
+    // Here, you can define what should happen when a file is clicked.
+    // For example, you can open the file content or navigate to a new page.
+    // This function can be customized based on your application's requirements.
+    console.log(`Clicked on file with ID: ${fileId}`);
+  };
+
   return (
     <div>
       <div className="main">
@@ -26,9 +33,12 @@ const Filemanager = () => {
         <ul>
           {files.map((file) => (
             <li key={file._id}>
-              {file.name} <button><Trash3Fill  /></button>
-              {/* <button onClick={() => handleUpdate(file._id)}>Update</button>
-              <button onClick={() => handleDelete(file._id)}>Delete</button> */}
+              <button onClick={() => handleFileClick(file._id)}>
+                {file.name}
+              </button>{" "}
+              <button>
+                <Trash3Fill />
+              </button>
             </li>
           ))}
         </ul>
