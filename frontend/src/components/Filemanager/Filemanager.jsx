@@ -29,14 +29,14 @@ const Filemanager = () => {
     <div>
       <div className="main">
         <h2>File Manager</h2>
-        <button><FileEarmarkPlus  /></button>
+        <button className="btn"><FileEarmarkPlus  /></button>
         <ul>
           {files.map((file) => (
             <li key={file._id}>
-              <button onClick={() => handleFileClick(file._id)}>
+              <button className="btn" onClick={() => handleFileClick(file._id)}>
                 {file.name}
               </button>{" "}
-              <button>
+              <button className="btn btn-outline-danger">
                 <Trash3Fill />
               </button>
             </li>

@@ -3,11 +3,15 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
 
-
 import Filemanager from "../../components/Filemanager/Filemanager";
 
 import { Spinner } from "react-bootstrap";
-import { PlayFill, SaveFill, PersonPlusFill, Robot } from "react-bootstrap-icons";
+import {
+  PlayFill,
+  SaveFill,
+  PersonPlusFill,
+  Robot,
+} from "react-bootstrap-icons";
 
 import axios from "axios";
 
@@ -39,7 +43,6 @@ const CodeEditor = () => {
   const handleUserSelect = (email) => {
     setSelectedUserEmail(email);
   };
-
 
   const handleRunClick = () => {
     // Remove the previous iframe (if it exists)
@@ -119,107 +122,107 @@ const CodeEditor = () => {
 
   return (
     <>
-    <Filemanager/>
-    <div className="container justify-content-center">
-      <div className="codeeditor_maincontainer ">
-      <div className="upper_container d-flex justify-content-between">
-          <div className="language_label bg-light rounded-3 mt-2 mb-2 border border-3">
-            <p className="language_name">Language: Javascript</p>
-          </div>
+      <Filemanager />
+      <div className="container justify-content-center">
+        <div className="codeeditor_maincontainer ">
+          <div className="upper_container d-flex justify-content-between">
+            <div className="language_label bg-light rounded-3 mt-2 mb-2 border border-3">
+              <p className="language_name">Language: Javascript</p>
+            </div>
 
+            <div>
+              <button
+                className="btn btn-outline-dark btn_invite"
+                variant="light"
+                onClick={handleShow}
+              >
+                Invite <PersonPlusFill />
+              </button>
+              <button
+                className="btn btn-primary run_btn"
+                onClick={handleRunClick}
+              >
+                Run <PlayFill />
+              </button>
+              <button
+                className="btn btn-success save_btn"
+                onClick={handleSaveClick}
+              >
+                Save <SaveFill />
+              </button>
+            </div>
+          </div>
           <div>
-            <button
-              className="btn btn-outline-dark btn_invite"
-              variant="light"
-              onClick={handleShow}
-            >
-              Invite <PersonPlusFill />
-            </button>
-            <button
-              className="btn btn-primary run_btn"
-              onClick={handleRunClick}
-            >
-              Run <PlayFill />
-            </button>
-            <button
-              className="btn btn-success save_btn"
-              onClick={handleSaveClick}
-            >
-              Save <SaveFill />
-            </button>
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Multiplayers in DevMind</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <div className="search-bar-container">
+                  <SearchBar
+                    setResults={setResults}
+                    selectedUserEmail={selectedUserEmail}
+                  />
+                  <SearchResultsList
+                    results={results}
+                    onUserSelect={handleUserSelect}
+                  />
+                </div>
+                <div>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlTextarea1"
+                  >
+                    <Form.Control as="textarea" rows={3} />
+                  </Form.Group>
+                </div>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  CLOSE
+                </Button>
+                <Button variant="primary" onClick={handleClose}>
+                  SEND
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </div>
-        </div>
-        <div>
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Multiplayers in DevMind</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <div className="search-bar-container">
-                <SearchBar
-                  setResults={setResults}
-                  selectedUserEmail={selectedUserEmail}
-                />
-                <SearchResultsList
-                  results={results}
-                  onUserSelect={handleUserSelect}
-                />
-              </div>
-              <div>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlTextarea1"
-                >
-                  <Form.Control as="textarea" rows={3} />
-                </Form.Group>
-              </div>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                CLOSE
-              </Button>
-              <Button variant="primary" onClick={handleClose}>
-                SEND
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </div>
 
-        <div className="template d-flex align-items-center bg-white">
-          <div className="">
-            <CodeMirror
-              className="console_container"
-              value={code}
-              height="450px"
-              width="700px"
-              extensions={[javascript({ jsx: true })]}
-              onChange={(value) => setCode(value)}
-              theme={dracula}
+          <div className="template d-flex align-items-center bg-white">
+            <div className="">
+              <CodeMirror
+                className="console_container"
+                value={code}
+                height="450px"
+                width="700px"
+                extensions={[javascript({ jsx: true })]}
+                onChange={(value) => setCode(value)}
+                theme={dracula}
               />
-          </div>
+            </div>
 
-          <div className="output_container bg-light rounded">
-            <p className="output_p">Output:</p>
-            <pre className="output_pre">{output}</pre>
+            <div className="output_container bg-light rounded">
+              <p className="output_p">Output:</p>
+              <pre className="output_pre">{output}</pre>
+            </div>
           </div>
+          {isLoading ? (
+            <button className="btn btn-primary run_btn explain_btn">
+              <Spinner animation="border" role="status" />
+            </button>
+          ) : (
+            <button
+              className="btn btn-primary run_btn explain_btn"
+              onClick={handleAIExplain}
+            >
+              Explain <Robot />
+            </button>
+          )}
+
+          <div className="ai-suggestions">{userContent}</div>
         </div>
-        {isLoading ? (
-          <button className="btn btn-primary run_btn explain_btn">
-            <Spinner animation="border" role="status" />
-          </button>
-        ) : (
-          <button
-            className="btn btn-primary run_btn explain_btn"
-            onClick={handleAIExplain}
-          >
-            Explain <Robot />
-          </button>
-        )}
-
-        <div className="ai-suggestions">{userContent}</div>
       </div>
-    </div>
-              </>
+    </>
   );
 };
 

@@ -11,8 +11,6 @@ const codeRoutes = require( "./routes/codeRoutes" );
 const feedbackRoutes = require( "./routes/feedbackRoutes" );
 const inviteRoutes = require("./routes/inviteRoutes");
 
-
-
 app.use(cors());
 app.use(express.json());
 
