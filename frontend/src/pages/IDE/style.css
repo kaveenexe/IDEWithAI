@@ -57,7 +57,7 @@ width: 100%;
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 10px;
-  width: 100%;
+  width: 81%;
   min-height: 100px;
   background-color: #0dcaf0;
   color: white;
@@ -65,7 +65,10 @@ width: 100%;
   text-align: justify;
 }
 
+
+.btnai{
+  display: flex;
+}
 .explain_btn {
-  margin: 10px 0 0 0;
-  height: 50px;
+  padding: 35px 20px;
 }

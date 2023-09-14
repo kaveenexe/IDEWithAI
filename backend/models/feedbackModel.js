@@ -13,7 +13,10 @@ const feedbackSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Project",
   },
-  feedbackText: String,
+  feedbackText: {
+    type: String,
+    required: true,
+  }
 });
 
 const Feedback = mongoose.model("Feedback", feedbackSchema);
