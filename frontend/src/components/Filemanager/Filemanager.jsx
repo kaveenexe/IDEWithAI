@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Filemanager.css";
-import { FileEarmarkPlus , Trash3Fill } from "react-bootstrap-icons";
-
+import { FileEarmarkPlus, Trash3Fill } from "react-bootstrap-icons";
 
 const Filemanager = () => {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
     // Replace with the actual API endpoint to fetch files
-    axios.get("http://localhost:5000/api/files")
+    axios
+      .get("http://localhost:5000/api/files")
       .then((response) => {
-        setFiles(response.data)
-      // console.log(response.data);
+        setFiles(response.data);
+        // console.log(response.data);
       })
-      
+
       .catch((error) => console.error("Error fetching files:", error));
   }, [files]);
 
@@ -25,18 +25,38 @@ const Filemanager = () => {
     console.log(`Clicked on file with ID: ${fileId}`);
   };
 
+  const handleDeleteFile = (fileId) => {
+    if (window.confirm("Are you sure you want to delete this file?")) {
+      // Send a DELETE request to delete the file
+      axios
+        .delete(`http://localhost:5000/api/files/${fileId}`)
+        .then(() => {
+          // Remove the deleted file from the state
+          setFiles((prevFiles) =>
+            prevFiles.filter((file) => file._id !== fileId)
+          );
+        })
+        .catch((error) => console.error("Error deleting file:", error));
+    }
+  };
+
   return (
     <div>
       <div className="main">
         <h2>File Manager</h2>
-        <button><FileEarmarkPlus  /></button>
+        <button className="btn">
+          <FileEarmarkPlus />
+        </button>
         <ul>
           {files.map((file) => (
             <li key={file._id}>
-              <button onClick={() => handleFileClick(file._id)}>
+              <button className="btn" onClick={() => handleFileClick(file._id)}>
                 {file.name}
               </button>{" "}
-              <button>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => handleDeleteFile(file._id)} // Attach delete function
+              >
                 <Trash3Fill />
               </button>
             </li>
