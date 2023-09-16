@@ -156,6 +156,25 @@ const updateUser = async (req, res) => {
   }
 };
 
+// Delete User 
+const deleteAccount = async (req, res) => {
+  const userId = req.params.id; // Assuming you have user data in the request
+
+  try {
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Optionally, you can perform additional cleanup, like deleting user-related data
+
+    res.status(200).json({ message: "Account deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 module.exports = {
   loginUser,
   signupUser,
@@ -164,5 +183,6 @@ module.exports = {
   getUserByFname,
   // getUserFirstNameByEmail,
   getAllUsers,
-  updateUser
+  updateUser,
+  deleteAccount
 };

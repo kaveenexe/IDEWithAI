@@ -3,6 +3,8 @@ import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
 import UserForm from "../../components/Dashboard/UserForm";
+import DeleteUser from "../../components/Dashboard/DeleteUser";
+import UserRetrieve from "../../components/Dashboard/UserRetrieve";
 import "./styles.css";
 
 function UserDashboard() {
@@ -15,9 +17,11 @@ function UserDashboard() {
       </div>
       <div className="justify-content-center container align-items-center mt-5 db_alltabs">
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+          
           <Row>
             <Col sm={3}>
               <Nav variant="pills" className="flex-column dashboard_tabs">
+              <UserRetrieve className=""/>
                 <Nav.Item>
                   <Nav.Link eventKey="first">Profile</Nav.Link>
                 </Nav.Item>
@@ -33,6 +37,7 @@ function UserDashboard() {
               <Tab.Content>
                 <Tab.Pane eventKey="first" className="dbtab_details">
                   <UserForm />
+                  <DeleteUser />
                 </Tab.Pane>
                 <Tab.Pane eventKey="second" className="dbtab_details">
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit.
