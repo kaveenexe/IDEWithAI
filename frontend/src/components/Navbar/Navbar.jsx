@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import { useLogout } from "../../hooks/useLogout";
 import "./Navbar.css";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { PersonCircle } from "react-bootstrap-icons";
 
 function ContainerInsideExample() {
   const { logout } = useLogout();
@@ -13,7 +14,7 @@ function ContainerInsideExample() {
   const handleClick = () => {
     logout();
   };
-
+  console.log("user", user);
   return (
     <Navbar bg="primary" data-bs-theme="dark">
       <Container>
@@ -22,10 +23,15 @@ function ContainerInsideExample() {
         </Navbar.Brand>
         <Nav className="justify-content-end">
           {user && (
-            <div className="navbar_font">
+            <div className="navbar_font d-flex justify-content-end">
+              <Nav.Link href="/dashboard" className="navbar_font">
+                <PersonCircle className="dashboard_icon" />
+              </Nav.Link>
               <span>{user.email}</span>
               <Button onClick={handleClick}>Log Out</Button>
+              
             </div>
+            
           )}
           {!user && (
             <div className="d-flex">
@@ -34,9 +40,6 @@ function ContainerInsideExample() {
               </Nav.Link>
               <Nav.Link href="/login" className="navbar_font">
                 login
-              </Nav.Link>
-              <Nav.Link href="/dashboard" className="navbar_font">
-                Dashboard
               </Nav.Link>
             </div>
           )}

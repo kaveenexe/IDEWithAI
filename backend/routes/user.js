@@ -7,6 +7,7 @@ const {
   signupUser,
   getUserByEmail,
   getUserByFname,
+  // getUserFirstNameByEmail,
   getAllUsers,
 } = require("../controllers/userController");
 
@@ -21,6 +22,9 @@ router.get("/email/:email", getUserByEmail);
 
 // Get user by first name
 router.get("/fname/:fname", getUserByFname);
+
+// // getUserFirstNameByEmail
+// router.get("/fname/email/:email", getUserFirstNameByEmail);
 
 // Get all users
 router.get("/", getAllUsers);

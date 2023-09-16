@@ -20,7 +20,7 @@ const Signup = () => {
     <>
       <div className="template d-flex justify-content-center align-items-center vh-100 bg-primary">
         <div className="form_container p-5 rounded bg-white">
-          <form className="signup" onSubmit={handleSubmit}>
+          <form className="signup col-12" onSubmit={handleSubmit}>
             <h3 className="text-center">Sign Up</h3>
 
             <div className="mb-2 pt-4 pb-2">
@@ -69,7 +69,7 @@ const Signup = () => {
               <button className="btn btn-primary" disabled={isLoading}>
                 Sign up
               </button>
-              {error && <div className="error bg-danger col-12 col-sm-12 rounded mt-2 pt-2 pb-2 text-center">{error}</div>}
+              {error && <div className="register_error bg-danger rounded mt-2 pt-2 pb-2 text-center">{error}</div>}
             </div>
 
             <p className="text-end mt-2 text-reset pt-3">
