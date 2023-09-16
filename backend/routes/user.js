@@ -10,6 +10,7 @@ const {
   // getUserFirstNameByEmail,
   getAllUsers,
   updateUser,
+  deleteAccount,
 } = require("../controllers/userController");
 
 //login route
@@ -34,5 +35,8 @@ router.get("/", getAllUsers);
 
 // update user
 router.put('/update/:id', updateUser);
+
+// delete user
+router.delete('/delete/:id', deleteAccount);
 
 module.exports = router;
