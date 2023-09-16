@@ -2,21 +2,22 @@ import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
+import UserForm from "../../components/Dashboard/UserForm";
 import "./styles.css";
 
 function UserDashboard() {
   return (
     <div className="db_container">
-      <div className="background">
-        {/* <h1 className="dbtitle text-white d-flex justify-content-center pt-5 pb-5">
-          User Dashboard
-        </h1> */}
+      <div className="background ">
+        <div className="dashbord_background justify-content-center container align-items-center">
+          <h1> </h1>
+        </div>
       </div>
-      <div className="justify-content-center container align-items-center mt-5">
+      <div className="justify-content-center container align-items-center mt-5 db_alltabs">
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
           <Row>
             <Col sm={3}>
-              <Nav variant="pills" className="flex-column">
+              <Nav variant="pills" className="flex-column dashboard_tabs">
                 <Nav.Item>
                   <Nav.Link eventKey="first">Profile</Nav.Link>
                 </Nav.Item>
@@ -30,19 +31,16 @@ function UserDashboard() {
             </Col>
             <Col sm={9}>
               <Tab.Content>
-                <Tab.Pane eventKey="first">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Ratione, nesciunt? Blanditiis ratione pariatur officiis saepe
-                  iste, incidunt iusto voluptatum, quo eos officia aliquam sed
-                  sapiente nobis, iure possimus nesciunt quidem?
+                <Tab.Pane eventKey="first" className="dbtab_details">
+                  <UserForm />
                 </Tab.Pane>
-                <Tab.Pane eventKey="second">
+                <Tab.Pane eventKey="second" className="dbtab_details">
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                   Ratione exercitationem, temporibus sequi consequuntur adipisci
                   recusandae molestias officiis doloribus dicta praesentium fuga
                   aut, minus doloremque. Quidem odit quia iusto est voluptatem.
                 </Tab.Pane>
-                <Tab.Pane eventKey="third">
+                <Tab.Pane eventKey="third" className="dbtab_details">
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                   Ratione exercitationem, temporibus sequi consequuntur adipisci
                   recusandae molestias officiis doloribus dicta praesentium fuga

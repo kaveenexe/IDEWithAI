@@ -9,6 +9,7 @@ const {
   getUserByFname,
   // getUserFirstNameByEmail,
   getAllUsers,
+  updateUser,
 } = require("../controllers/userController");
 
 //login route
@@ -28,5 +29,10 @@ router.get("/fname/:fname", getUserByFname);
 
 // Get all users
 router.get("/", getAllUsers);
+
+// ==================== CRUD ====================
+
+// update user
+router.put('/update/:id', updateUser);
 
 module.exports = router;
