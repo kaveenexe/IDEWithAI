@@ -12,7 +12,7 @@ function UserDashboard() {
     <div className="db_container">
       <div className="background ">
         <div className="dashbord_background justify-content-center container align-items-center">
-          <h1> </h1>
+          <h1 className="dashboard_title"> Dashboard </h1>
         </div>
       </div>
       <div className="justify-content-center container align-items-center mt-5 db_alltabs">
