@@ -7,9 +7,34 @@ import "./Navbar.css";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { PersonCircle } from "react-bootstrap-icons";
 
+
 function ContainerInsideExample() {
   const { logout } = useLogout();
   const { user } = useAuthContext();
+
+  const userData = JSON.parse(localStorage.getItem('userData'));
+
+  if(!userData) {
+    return (
+      <Navbar bg="primary" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand href="/" className="navbar_font">
+            DevMind
+          </Navbar.Brand>
+          <Nav className="justify-content-end">
+            <div className="d-flex">
+              <Nav.Link href="/register" className="navbar_font">
+                Register
+              </Nav.Link>
+              <Nav.Link href="/login" className="navbar_font">
+                login
+              </Nav.Link>
+            </div>
+          </Nav>
+        </Container>
+      </Navbar>
+    )
+  }
 
   const handleClick = () => {
     logout();
@@ -24,12 +49,12 @@ function ContainerInsideExample() {
         <Nav className="justify-content-end">
           {user && (
             <div className="navbar_font d-flex justify-content-end">
-              <Nav.Link href="/dashboard" className="navbar_font">
+              <Nav.Link href="/dashboard" className="navbar_font to_dashboard">
                 <PersonCircle className="dashboard_icon" />
-              </Nav.Link>
-              <span>{user.email}</span>
-              <Button onClick={handleClick}>Log Out</Button>
               
+              <span className="mt-2">Hi {userData.fname}</span>
+              <Button onClick={handleClick}>Log Out</Button>
+              </Nav.Link>
             </div>
             
           )}
