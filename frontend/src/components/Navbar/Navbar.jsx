@@ -14,6 +14,7 @@ function ContainerInsideExample() {
 
   const userData = JSON.parse(localStorage.getItem('userData'));
 
+  // IF USER LOGOUT NAVBAR WILL SHOW THIS
   if(!userData) {
     return (
       <Navbar bg="primary" data-bs-theme="dark">
@@ -41,6 +42,8 @@ function ContainerInsideExample() {
   };
   console.log("user", user);
   return (
+
+    // IF USER LOGIN NAVBAR WILL SHOW THIS
     <Navbar bg="primary" data-bs-theme="dark">
       <Container>
         <Navbar.Brand href="/" className="navbar_font">
@@ -52,7 +55,7 @@ function ContainerInsideExample() {
               <Nav.Link href="/dashboard" className="navbar_font to_dashboard">
                 <PersonCircle className="dashboard_icon" />
               
-              <span className="mt-2">Hi {userData.fname}</span>
+              <span className="login_name btn btn-primary">Hi {userData.fname}</span>
               <Button onClick={handleClick}>Log Out</Button>
               </Nav.Link>
             </div>
