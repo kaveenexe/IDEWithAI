@@ -1,29 +1,39 @@
-.db_container{
-position: relative;
+.db_container {
+  position: relative;
+  top: 15px;
 }
 
-.db_alltabs{
+.db_alltabs {
   position: absolute;
-  top: 80px;
+  top: 100px;
   right: 0;
+}
+
+.dashboard_title {
+  position: absolute;
+  right: 40%;
+  top: 40px;
+  color: #fff;
+  text-transform: uppercase;
 }
 
 .dashbord_background {
   width: 90%;
-  height: 30vh;
+  height: 40vh;
   background-color: #21d4fd;
   background-image: linear-gradient(19deg, #21d4fd 0%, #b721ff 100%);
   border-radius: 10px;
   position: relative;
 }
 
-.dashboard_tabs{
+.dashboard_tabs {
   width: 90%;
-  height: 40vh;
+  height: 45vh;
   background-color: #ffffff;
   margin-left: 2%;
   border-radius: 7px;
   border: #c9c9c9 solid 1px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .dbtab_details {
@@ -32,4 +42,5 @@ position: relative;
   background-color: #ffffff;
   border-radius: 7px;
   border: #c9c9c9 solid 1px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
