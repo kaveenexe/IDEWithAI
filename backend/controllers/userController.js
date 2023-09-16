@@ -91,6 +91,23 @@ const getUserByFname = async (req, res) => {
   }
 };
 
+// // Get user's first name by email
+// const getUserFirstNameByEmail = async (req, res) => {
+//   const userEmail = req.params.email;
+
+//   try {
+//     const user = await User.findOne({ email: userEmail });
+//     if (!user) {
+//       return res.status(404).json({ error: "User not found" });
+//     }
+
+//     // Return only the fname
+//     res.status(200).json({ fname: user.fname });
+//   } catch (error) {
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// };
+
 // Get all users
 const getAllUsers = async (req, res) => {
   try {
@@ -107,5 +124,6 @@ module.exports = {
   getUserById,
   getUserByEmail,
   getUserByFname,
+  // getUserFirstNameByEmail,
   getAllUsers,
 };
