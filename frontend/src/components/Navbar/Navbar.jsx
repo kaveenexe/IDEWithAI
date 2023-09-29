@@ -46,7 +46,7 @@ function ContainerInsideExample() {
     // IF USER LOGIN NAVBAR WILL SHOW THIS
     <Navbar bg="primary" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand href="/" className="navbar_font">
+        <Navbar.Brand href="/" className="navbar_font_logo">
           DevMind
         </Navbar.Brand>
         <Nav className="justify-content-end">
