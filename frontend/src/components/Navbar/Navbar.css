@@ -3,8 +3,23 @@
 }
 
 .dashboard_icon {
-    width: 20px;
-    height: 20px;
+    color: white;
+    width: 30px;
+    height: 30px;
     margin-right: 10px;
     margin-top: 3px;
+}
+
+.dashboard_icon:hover {
+    color: white;
+}
+
+.navbar_font_logo{
+    color: white;
+    transition: text-shadow 0.3s ease;
+}
+
+.navbar_font_logo:hover {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(1, 1, 1, 0.9);
 }
