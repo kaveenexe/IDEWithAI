@@ -1,0 +1,56 @@
+.bg {
+  background-image: url("../../images/app.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 80vh;
+  background-position: center;
+  opacity: 0.9;
+}
+
+.heading-container{
+  text-align: left;
+  padding-top: 70px;
+  padding-left: 30px;
+}
+
+.heading-container h1{
+  opacity: 10;
+  font-size: 50px;
+  color: rgb(255, 255, 255);
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 700;
+}
+
+.heading-container p{
+  padding-left: 5px;
+  opacity: 10;
+  font-size: 15px;
+  color: rgb(255, 255, 255);
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.para-div {
+  width: 345px;
+  padding-top: 10px;
+}
+
+.homeBtn{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 8px 18px;
+    margin: 10px 6px;
+    font-size: 15px;
+    background-color: transparent;
+    color: var(--i);
+    outline: none;
+    border: 3px solid var(--i);
+    border-radius: 4px;
+    cursor: pointer;
+    pointer-events: all;
+    transition: .3s;
+    font-weight: 600;
+}
+
+.homeBtn:hover{
+    background-color: var(--i);
+    color: #000;
+}

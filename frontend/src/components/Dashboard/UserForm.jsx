@@ -184,8 +184,7 @@ function UserForm() {
             />
           </Form.Group>
         </Row>
-
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" className="update-btn mt-3 mb-1">
           Update Profile
         </Button>
       </Form>

@@ -3,8 +3,6 @@ const router = express.Router();
 const inviteController = require("../controllers/inviteController");
 
 router.post( "/create-invite", inviteController.createInvite );
-router.get( "/invitations/:inviteeId", inviteController.getInvitations );
-router.post("/accept/:inviteeId", inviteController.acceptInvitation);
-router.post("/decline/:inviteeId", inviteController.declineInvitation);
+router.get( "/invitations/:email", inviteController.getInvitations );
 
 module.exports = router;

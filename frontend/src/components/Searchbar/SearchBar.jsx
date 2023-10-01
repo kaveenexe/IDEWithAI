@@ -40,6 +40,11 @@ export const SearchBar = ({ setResults, selectedUserEmail }) => {
               ? selectedUserEmail
               : "Add people by email or username"
           }
+          style={{
+            marginLeft: "0px",
+            fontSize: "17px",
+            fontFamily: "Trebuchet MS",
+          }}
           value={input}
           onChange={(e) => handleChange(e.target.value)}
         />
