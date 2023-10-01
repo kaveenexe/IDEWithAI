@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
-
-
 import Filemanager from "../../components/Filemanager/Filemanager";
-
 import { Spinner } from "react-bootstrap";
-import { PlayFill, SaveFill, PersonPlusFill, Robot } from "react-bootstrap-icons";
-
+import {
+  PlayFill,
+  SaveFill,
+  QuestionCircleFill,
+  Robot,
+  RocketTakeoff,
+} from "react-bootstrap-icons";
 import axios from "axios";
-
 import Button from "react-bootstrap/Button";
 import "./style.css";
 import Form from "react-bootstrap/Form";
@@ -39,7 +40,6 @@ const CodeEditor = () => {
   const handleUserSelect = (email) => {
     setSelectedUserEmail(email);
   };
-
 
   const handleRunClick = () => {
     // Remove the previous iframe (if it exists)
@@ -133,7 +133,7 @@ const CodeEditor = () => {
                 variant="light"
                 onClick={handleShow}
               >
-                Invite <PersonPlusFill />
+                Get Help <QuestionCircleFill />
               </button>
               <button
                 className="btn btn-primary run_btn"
@@ -152,7 +152,15 @@ const CodeEditor = () => {
           <div>
             <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton>
-                <Modal.Title>Multiplayers in DevMind</Modal.Title>
+                <Modal.Title
+                  style={{
+                    fontSize: "25px",
+                    fontFamily: "Trebuchet MS",
+                    fontWeight: "700",
+                  }}
+                >
+                  Multiplayers in DevMind
+                </Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <div className="search-bar-container">
@@ -169,15 +177,43 @@ const CodeEditor = () => {
                   <Form.Group
                     className="mb-3"
                     controlId="exampleForm.ControlTextarea1"
+                    style={{
+                      fontSize: "17px",
+                      fontFamily: "Trebuchet MS",
+                    }}
                   >
+                    <Form.Label>Your Message</Form.Label>
                     <Form.Control as="textarea" rows={3} />
+                  </Form.Group>
+                </div>
+                <div>
+                  <Form.Group
+                    controlId="formFile"
+                    className="mb-1"
+                    style={{
+                      marginLeft: "0px",
+                      fontSize: "17px",
+                      fontFamily: "Trebuchet MS",
+                    }}
+                  >
+                    <Form.Label>Snapshot of the code (Optional)</Form.Label>
+                    <Form.Control
+                      type="file"
+                      style={{
+                        marginLeft: "0px",
+                      }}
+                    />
                   </Form.Group>
                 </div>
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  CLOSE
-                </Button>
+                <div>
+                  <a href="/community">
+                    <Button variant="success" onClick={handleClose}>
+                      <RocketTakeoff /> DISCOVER MORE GUESTS
+                    </Button>
+                  </a>
+                </div>
                 <Button variant="primary" onClick={handleClose}>
                   SEND
                 </Button>

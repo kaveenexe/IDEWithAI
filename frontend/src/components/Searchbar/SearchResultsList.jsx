@@ -1,4 +1,3 @@
-// SearchResultsList.jsx
 import React, { useState } from "react";
 import "./SearchResultsList.css";
 import { SearchResult } from "./SearchResult";

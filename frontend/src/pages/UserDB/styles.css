@@ -28,19 +28,50 @@
 
 .dashboard_tabs {
   width: 90%;
-  height: 45vh;
+  height: 39vh;
   background-color: #ffffff;
   margin-left: 2%;
   border-radius: 7px;
   border: #c9c9c9 solid 1px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding-left: 3%;
+  padding-right: 3%;
 }
 
 .dbtab_details {
   width: 80%;
-  height: 60vh;
+  height: 62.2vh;
   background-color: #ffffff;
   border-radius: 7px;
   border: #c9c9c9 solid 1px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.join-card {
+  width: 90%;
+  height: 22.5vh;
+  background-image: linear-gradient(10deg, #83e6fc 0%, #d9acee 100%);
+  margin-left: 2%;
+  border-radius: 7px;
+  border: #c9c9c9 solid 1px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-bottom: 3%;
+  margin-top: 5px;
+  align-items: center;
+}
+
+.join-btn{
+  margin-bottom: 3px;
+  width: 185px;
+}
+
+.update-btn {
+  align-items: center;
+  width: 175px;
+}
+
+.custom-form-control {
+  margin-left: 0px; 
 }

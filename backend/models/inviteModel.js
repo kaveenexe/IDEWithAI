@@ -5,20 +5,17 @@ const invitationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  invitee: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
-  project: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "File",
-  },
-  status: {
+  email: {
     type: String,
-    enum: ["pending", "accepted", "declined"],
-    default: "pending",
+    required: true,
   },
-  message: String,
+  message: {
+    type: String,
+    required: true,
+  },
+  snapshot: {
+    type: String,
+  }
 });
 
 const Invitation = mongoose.model("Invitation", invitationSchema);

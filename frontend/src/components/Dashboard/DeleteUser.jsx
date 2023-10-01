@@ -50,7 +50,7 @@ function DeleteUser() {
   };
   return (
     <div>
-      <Button variant="danger" onClick={handleDeleteAccount} className="m-3 mt-4">
+      <Button variant="danger" onClick={handleDeleteAccount} className="m-3 mt-2">
         Delete My Account
       </Button>
     </div>
