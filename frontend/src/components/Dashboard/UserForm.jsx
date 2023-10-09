@@ -184,9 +184,15 @@ function UserForm() {
             />
           </Form.Group>
         </Row>
-        <Button variant="primary" type="submit" className="update-btn mt-3 mb-1">
-          Update Profile
-        </Button>
+        <div className="buttons-user-db " style={{display: "flex", justifyContent: "space-between"}}>
+          <Button variant="primary" type="submit" className="update-btn mt-3 mb-1">
+            Update Profile
+          </Button>
+
+          <Button className="btn mt-3 mb-1 ">
+            Generate Report
+          </Button>
+        </div>
       </Form>
     </div>
   );
