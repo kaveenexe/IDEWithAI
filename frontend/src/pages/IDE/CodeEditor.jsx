@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
@@ -18,8 +18,36 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { SearchBar } from "../../components/Searchbar/SearchBar";
 import { SearchResultsList } from "../../components/Searchbar/SearchResultsList";
+import Swal from "sweetalert2";
 
 const CodeEditor = () => {
+  // Get user data from local storage
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  // console.log( userData.email );
+
+  // Invitation Model Form
+  const [message, setMessage] = useState("");
+  const [selectedUserEmail, setSelectedUserEmail] = useState("");
+  const [senderEmail, setSenderEmail] = useState("");
+
+  useEffect(() => {
+    if (userData && userData.email) {
+      setSenderEmail(userData.email);
+    }
+  }, [userData]);
+
+  const handleUserSelect = (email) => {
+    setSelectedUserEmail(email);
+  };
+
+  // Image upload
+  const [fileName, setFileName] = useState("");
+
+  const onChangeFile = (e) => {
+    setFileName(e.target.files[0]);
+  };
+
+  // Code Editor
   const [output, setOutput] = useState("");
   const [code, setCode] = useState('console.log("Hello, world!");');
 
@@ -34,12 +62,6 @@ const CodeEditor = () => {
 
   //Handle API Call Users
   const [results, setResults] = useState([]);
-
-  const [selectedUserEmail, setSelectedUserEmail] = useState("");
-
-  const handleUserSelect = (email) => {
-    setSelectedUserEmail(email);
-  };
 
   const handleRunClick = () => {
     // Remove the previous iframe (if it exists)
@@ -64,9 +86,7 @@ const CodeEditor = () => {
 
     const script = document.createElement("script");
     script.text = code;
-
     newIframe.contentDocument.body.appendChild(script);
-
     setIframe(newIframe);
   };
 
@@ -117,6 +137,42 @@ const CodeEditor = () => {
     }
   };
 
+  // Hnadle the Invitation Send Button
+  const handleInvitationSend = () => {
+    const formData = new FormData(); 
+    formData.append( "sender", senderEmail );
+    formData.append("email", selectedUserEmail);
+    formData.append("message", message);
+    formData.append("snapshotImage", fileName);
+
+    axios
+      .post("http://localhost:5000/api/invitation/create-invite", formData)
+      .then((response) => {
+        console.log("Invitation Send Successfully...");
+
+        Swal.fire({
+          title: "Done!",
+          text: "Invitation Send Successfully...",
+          icon: "success",
+        }).then(() => {
+          window.location.href = "/code-editor";
+        });
+
+        setSelectedUserEmail("");
+        setMessage("");
+        setShow(false);
+      })
+      .catch((error) => {
+        console.error("Error sending invitation:", error);
+
+        Swal.fire({
+          title: "Oops!",
+          text: "Failed to send the Invitation!",
+          icon: "error",
+        });
+      });
+  };
+
   return (
     <>
       <Filemanager />
@@ -163,6 +219,7 @@ const CodeEditor = () => {
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
+                <input type="hidden" value={senderEmail} />
                 <div className="search-bar-container">
                   <SearchBar
                     setResults={setResults}
@@ -183,7 +240,11 @@ const CodeEditor = () => {
                     }}
                   >
                     <Form.Label>Your Message</Form.Label>
-                    <Form.Control as="textarea" rows={3} />
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      onChange={(e) => setMessage(e.target.value)}
+                    />
                   </Form.Group>
                 </div>
                 <div>
@@ -202,6 +263,8 @@ const CodeEditor = () => {
                       style={{
                         marginLeft: "0px",
                       }}
+                      name="snapshotImage"
+                      onChange={onChangeFile}
                     />
                   </Form.Group>
                 </div>
@@ -214,7 +277,7 @@ const CodeEditor = () => {
                     </Button>
                   </a>
                 </div>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" onClick={handleInvitationSend}>
                   SEND
                 </Button>
               </Modal.Footer>

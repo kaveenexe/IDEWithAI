@@ -1,32 +1,16 @@
 const Invite = require("../models/inviteModel");
 
-const createInvite = async (req, res) => {
+const getInvitationBySender = async (req, res) => {
   try {
-    const { senderId, email, message, image } = req.body;
+    const sender = req.params.sender;
 
-    const invitation = new Invite({
-      sender: senderId,
-      email: email,
-      message: message,
-      snapshot: image,
-    });
+    const invitation = await Invite.findOne({ sender: sender });
 
-    await invitation.save();
+    if (!invitation) {
+      return res.status(404).json({ error: "Invitation not found" });
+    }
 
-    res.status(201).json({ invitation });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
-
-const getInvitations = async (req, res) => {
-  try {
-    const email = req.params.email;
-
-    const invitations = await Invite.find({ invitee: email });
-
-    res.json({ invitations });
+    res.json({ invitation });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -34,6 +18,5 @@ const getInvitations = async (req, res) => {
 };
 
 module.exports = {
-  createInvite,
-  getInvitations,
+  getInvitationBySender,
 };
