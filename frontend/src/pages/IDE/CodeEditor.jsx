@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
+import {useParams} from "react-router-dom";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
-
+import { toast } from "react-toastify";
 import Filemanager from "../../components/Filemanager/Filemanager";
 
 import { Spinner } from "react-bootstrap";
@@ -25,6 +26,7 @@ import { SearchResultsList } from "../../components/Searchbar/SearchResultsList"
 const CodeEditor = () => {
   const [output, setOutput] = useState("");
   const [code, setCode] = useState('console.log("Hello, world!");');
+  const [selectedFileContent, setSelectedFileContent] = useState(null);
 
   const [userContent, setUserContent] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +45,11 @@ const CodeEditor = () => {
   const handleUserSelect = (email) => {
     setSelectedUserEmail(email);
   };
+
+   const handleFileSelect = (content) => {
+    // Set the content of the selected file in the CodeMirror editor
+    setCode(content);
+  }
 
   const handleRunClick = () => {
     // Remove the previous iframe (if it exists)
@@ -73,18 +80,26 @@ const CodeEditor = () => {
     setIframe(newIframe);
   };
 
-  const handleSaveClick = () => {
-    axios
-      .post("http://localhost:5000/api/ide/save-code", { code })
-      .then((response) => {
-        console.log("Code saved successfully!");
-        // Optionally, you can clear the code editor here
-        // setCode('');
-      })
-      .catch((error) => {
-        console.error("Error saving code:", error);
-      });
-  };
+    const handleSaveClick = () => {
+      // Ensure there's content to save
+      if (!code) {
+        console.log("No code to save.");
+        return;
+      }
+
+    const id = localStorage.getItem("fileId");
+      // Send a PUT request to update the file content
+      axios
+        .put(`http://localhost:5000/api/files/${id}/content`, {
+          content: code,
+        })
+        .then((response) => {
+          toast.success("Code updated successfully!");
+        })
+        .catch((error) => {
+          toast.success("Error saving code:", error);
+        });
+    };
 
   const handleAIExplain = () => {
     const USER_PROMPT = `Code:${code}`;
@@ -122,7 +137,7 @@ const CodeEditor = () => {
 
   return (
     <>
-      <Filemanager />
+      <Filemanager onFileSelect={handleFileSelect} />
       <div className="container justify-content-center">
         <div className="codeeditor_maincontainer ">
           <div className="upper_container d-flex justify-content-between">
@@ -192,7 +207,7 @@ const CodeEditor = () => {
             <div className="">
               <CodeMirror
                 className="console_container"
-                value={code}
+                value={selectedFileContent || code}
                 height="450px"
                 width="700px"
                 extensions={[javascript({ jsx: true })]}
@@ -221,6 +236,7 @@ const CodeEditor = () => {
 
           <div className="ai-suggestions">{userContent}</div>
         </div>
+        
       </div>
     </>
   );

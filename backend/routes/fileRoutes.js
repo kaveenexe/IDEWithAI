@@ -15,4 +15,8 @@ router.put('/:id', fileController.updateFile);
 // Delete a file by ID
 router.delete('/:id', fileController.deleteFile);
 
+router.get('/:id/content', fileController.getFileContent);
+
+router.put('/:id/content', fileController.updateFileContent);
+
 module.exports = router;
