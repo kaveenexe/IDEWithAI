@@ -1,0 +1,73 @@
+.thead .thead-light{
+  display: flex;
+  justify-content: center;
+  align-items:baseline;
+}
+
+.align-items-center {
+  vertical-align: middle !important;
+}
+
+.table .thead{
+  white-space: nowrap;
+  background-color: #d7d7f5;
+  min-height: 20vh;
+  color: #000000;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 17px;
+}
+
+.table .tbody{
+  background-color: #f2f2f8;
+}
+
+.table .thead tr th:nth-child(1){
+  max-width: 100px;
+}
+
+.table .thead tr th:nth-child(2){
+  min-width: 316px;
+}
+
+.table .thead tr th:nth-child(3){
+  min-width: 70px;
+  text-align: center;
+}
+
+.deleteIcon {
+  font-size: 20px;
+  margin-left: 3px;
+  margin-right: 3px;
+  transition: 0.21s ease-in-out;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  margin-bottom: 1px;
+}
+
+.viewIcon {
+  font-size: 21px;
+  margin-bottom: 1px;
+  margin-left: -6.4px;
+  margin-right: -7px;
+  transition: 0.21s ease-in-out;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+}
+
+.deleteBtn {
+  background: #ff5858;
+  border: 2px solid #ffffff;
+  height: 40px;
+  margin-left: 50px;
+  margin-top: -66.5px;
+}
+
+.viewBtn {
+  background: #9b58ff;
+  border: 2px solid #ffffff;
+  height: 40px;
+}
+
+.col-lg-3{
+  margin-left: 3px;
+}

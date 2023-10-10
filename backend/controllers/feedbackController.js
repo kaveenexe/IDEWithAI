@@ -2,11 +2,11 @@ const Feedback = require("../models/feedbackModel");
 
 const submitFeedback = async (req, res) => {
   try {
-    const { authorId, recieverId, feedbackText } = req.body;
+    const { author, reciever, feedbackText } = req.body;
 
     const feedback = new Feedback({
-      author: authorId,
-      reciever: recieverId,
+      author,
+      reciever,
       feedbackText,
     });
 
@@ -19,11 +19,11 @@ const submitFeedback = async (req, res) => {
   }
 };
 
-const getFeedbackByReciever = async (req, res) => {
+const getFeedbackByAuthorEmail = async (req, res) => {
   try {
-    const recieverId = req.params.recieverId;
+    const author = req.params.author;
 
-    const feedback = await Feedback.find({ reciever: recieverId });
+    const feedback = await Feedback.findOne({ author: author });
 
     res.json({ feedback });
   } catch (error) {
@@ -32,17 +32,25 @@ const getFeedbackByReciever = async (req, res) => {
   }
 };
 
-const getFeedbackByAuthor = async (req, res) => {
+const deleteFeedbackById = async (req, res) => {
   try {
-    const authorId = req.params.authorId;
+    const feedbackId = req.params.id;
 
-    const feedback = await Feedback.find({ author: authorId });
+    const deletedFeedback = await Feedback.findByIdAndRemove(feedbackId);
 
-    res.json({ feedback });
+    if (!deletedFeedback) {
+      return res.status(404).json({ error: "Feedback not found" });
+    }
+
+    res.json({ message: "Feedback deleted successfully" });
   } catch (error) {
-    console.error("Error fetching feedback:", error);
+    console.error("Error deleting feedback:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
-module.exports = { submitFeedback, getFeedbackByReciever, getFeedbackByAuthor };
+module.exports = {
+  submitFeedback,
+  getFeedbackByAuthorEmail,
+  deleteFeedbackById,
+};
