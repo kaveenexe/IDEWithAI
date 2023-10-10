@@ -58,22 +58,19 @@ width: 100%;
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 10px;
-
-  width: 81%;
-
-  min-height: 100px;
+  width: 100%;
+  min-height: 95px;
   background-color: #0dcaf0;
   color: white;
   padding: 20px;
   text-align: justify;
 }
 
-
-.btnai{
+.ai-explain-btn {
   display: flex;
+  height: 105px;
 }
 
 .explain_btn {
-  padding: 35px 20px;
-
+  padding: 0px 30px;
 }

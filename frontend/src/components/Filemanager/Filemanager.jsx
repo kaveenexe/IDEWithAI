@@ -8,11 +8,9 @@ import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 
 const Filemanager = ({ onFileSelect }) => {
 
-const Filemanager = () => {
-
   const [files, setFiles] = useState([]);
-  const [newFileName, setNewFileName] = useState("");
-  const [selectedFileContent, setSelectedFileContent] = useState("");
+  // const [newFileName, setNewFileName] = useState("");
+  // const [selectedFileContent, setSelectedFileContent] = useState("");
 
   useEffect(() => {
     // Replace with the actual API endpoint to fetch files
@@ -20,13 +18,8 @@ const Filemanager = () => {
       .get("http://localhost:5000/api/files")
       .then((response) => {
         setFiles(response.data);
-
       })
-
         // console.log(response.data);
-      })
-
-
       .catch((error) => console.error("Error fetching files:", error));
   }, [files]);
 
@@ -83,20 +76,6 @@ const Filemanager = () => {
       .catch((error) => console.error("Error creating file:", error));
   };
 
-  const handleDeleteFile = (fileId) => {
-    if (window.confirm("Are you sure you want to delete this file?")) {
-      // Send a DELETE request to delete the file
-      axios
-        .delete(`http://localhost:5000/api/files/${fileId}`)
-        .then(() => {
-          // Remove the deleted file from the state
-          setFiles((prevFiles) =>
-            prevFiles.filter((file) => file._id !== fileId)
-          );
-        })
-        .catch((error) => console.error("Error deleting file:", error));
-    }
-  };
 
   return (
     <div>
@@ -110,10 +89,6 @@ const Filemanager = () => {
           {/* ToastContainer to display the notifications */}
           <ToastContainer />
         </div>
-
-        <button className="btn">
-          <FileEarmarkPlus />
-        </button>
 
         <ul>
           {files.map((file) => (

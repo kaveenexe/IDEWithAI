@@ -1,9 +1,4 @@
-
-
-import {useParams} from "react-router-dom";
-
 import { toast } from "react-toastify";
-
 import React, { useState, useEffect } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
@@ -18,8 +13,6 @@ import {
   Robot,
   RocketTakeoff,
 } from "react-bootstrap-icons";
-
-
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import "./style.css";
@@ -72,13 +65,6 @@ const CodeEditor = () => {
 
   //Handle API Call Users
   const [results, setResults] = useState([]);
-
-
-  const [selectedUserEmail, setSelectedUserEmail] = useState("");
-
-  const handleUserSelect = (email) => {
-    setSelectedUserEmail(email);
-  };
 
    const handleFileSelect = (content) => {
     // Set the content of the selected file in the CodeMirror editor
@@ -211,7 +197,7 @@ const CodeEditor = () => {
 
 
       <div className="container justify-content-center">
-        <div className="codeeditor_maincontainer ">
+        <div className="codeeditor_maincontainer">
           <div className="upper_container d-flex justify-content-between">
             <div className="language_label bg-light rounded-3 mt-2 mb-2 border border-3">
               <p className="language_name">Language: Javascript</p>
@@ -345,37 +331,24 @@ const CodeEditor = () => {
               <Spinner animation="border" role="status" />
             </button>
           ) : (
-            <button
+            <div className="ai-explain-btn">
+              <button
               className="btn btn-primary run_btn explain_btn"
               onClick={handleAIExplain}
             >
               Explain <Robot />
             </button>
+            <div className="ai-suggestions">{userContent}</div>
+            </div>
+            
           )}
 
-          <div className="ai-suggestions">{userContent}</div>
+          
         </div>
 
         
       </div>
-      <div className="btnai">
-        <div>
-          {isLoading ? (
-            <button className="btn btn-primary run_btn explain_btn">
-              <Spinner animation="border" role="status" />
-            </button>
-          ) : (
-            <button
-              className="btn btn-primary run_btn explain_btn"
-              onClick={handleAIExplain}
-            >
-              Explain <Robot />
-            </button>
-          )}
-        </div>
-        <div className="ai-suggestions">{userContent}</div>
-
-      </div>
+      
     </>
   );
 };
