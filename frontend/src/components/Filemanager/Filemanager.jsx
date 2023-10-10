@@ -39,7 +39,7 @@ const Filemanager = ({ onFileSelect }) => {
   };
 
   const handleDeleteFile = (fileId) => {
-    if (window.confirm("Are you sure you want to delete this file?")) {
+    if (window.confirm("Are you sure you want to delete file?")) {
       // Send a DELETE request to delete the file
       axios
         .delete(`http://localhost:5000/api/files/${fileId}`)
