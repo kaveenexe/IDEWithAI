@@ -3,17 +3,17 @@ const mongoose = require("mongoose");
 const feedbackSchema = new mongoose.Schema(
   {
     author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Invitation",
+      type: String,
+      required: true,
     },
     reciever: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
+      required: true,
     },
     feedbackText: {
       type: String,
       required: true,
-    }
+    },
   },
   {
     timestamps: true,

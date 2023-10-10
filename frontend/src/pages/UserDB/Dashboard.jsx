@@ -8,6 +8,8 @@ import Button from "react-bootstrap/Button";
 import UserForm from "../../components/Dashboard/UserForm";
 import DeleteUser from "../../components/Dashboard/DeleteUser";
 import UserRetrieve from "../../components/Dashboard/UserRetrieve";
+import Invitation from "../../components/Dashboard/Invitation";
+import Feedback from "../../components/Dashboard/Feedback";
 import "./styles.css";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -147,16 +149,10 @@ const Dashboard = () => {
                   <DeleteUser />
                 </Tab.Pane>
                 <Tab.Pane eventKey="second" className="dbtab_details">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Ratione exercitationem, temporibus sequi consequuntur adipisci
-                  recusandae molestias officiis doloribus dicta praesentium fuga
-                  aut, minus doloremque. Quidem odit quia iusto est voluptatem.
+                  <Invitation />
                 </Tab.Pane>
                 <Tab.Pane eventKey="third" className="dbtab_details">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Ratione exercitationem, temporibus sequi consequuntur adipisci
-                  recusandae molestias officiis doloribus dicta praesentium fuga
-                  aut, minus doloremque. Quidem odit quia iusto est voluptatem.
+                  <Feedback />
                 </Tab.Pane>
               </Tab.Content>
             </Col>
