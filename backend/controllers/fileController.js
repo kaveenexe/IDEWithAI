@@ -61,3 +61,48 @@ exports.deleteFile = async (req, res) => {
     res.status(500).json({ error: 'Could not delete file' });
   }
 };
+
+exports.getFileContent = async (req, res) => {
+  try {
+    // Find the file by ID in your database
+    const { id } = req.params;
+
+    const file = await File.findById(id);
+
+    if (!file) {
+      return res.status(404).json({ error: "File not found" });
+    }
+
+    
+
+    res.json({ content: file.content });
+  } catch (error) {
+    console.error("Error fetching file content:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// Update a file's content by ID
+exports.updateFileContent = async (req, res) => {
+  try {
+    const fileId = req.params.id;
+    const newContent = req.body.content;
+
+    // Find the file by its ID
+    const file = await File.findById(fileId);
+
+    if (!file) {
+      return res.status(404).json({ message: "File not found" });
+    }
+
+    // Update the content of the file
+    file.content = newContent;
+    await file.save();
+
+    return res.status(200).json({ message: "File content updated successfully" });
+  } catch (error) {
+    console.error("Error updating file content:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+}
+    

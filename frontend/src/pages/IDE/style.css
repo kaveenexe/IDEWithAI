@@ -53,11 +53,14 @@ align-items: center;
 width: 100%;
 }
 
+
 .ai-suggestions {
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 10px;
+
   width: 81%;
+
   min-height: 100px;
   background-color: #0dcaf0;
   color: white;
@@ -65,10 +68,12 @@ width: 100%;
   text-align: justify;
 }
 
+
 .btnai{
   display: flex;
 }
 
 .explain_btn {
   padding: 35px 20px;
+
 }
