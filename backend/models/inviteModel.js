@@ -1,25 +1,27 @@
 const mongoose = require("mongoose");
 
-const invitationSchema = new mongoose.Schema({
-  sender: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+const invitationSchema = new mongoose.Schema(
+  {
+    sender: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    message: {
+      type: String,
+      required: true,
+    },
+    snapshotImage: {
+      type: String,
+    },
   },
-  invitee: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
-  project: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Project",
-  },
-  status: {
-    type: String,
-    enum: ["pending", "accepted", "declined"],
-    default: "pending",
-  },
-  message: String,
-});
+  {
+    timestamps: true,
+  }
+);
 
 const Invitation = mongoose.model("Invitation", invitationSchema);
 

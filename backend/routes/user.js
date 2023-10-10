@@ -7,7 +7,10 @@ const {
   signupUser,
   getUserByEmail,
   getUserByFname,
+  // getUserFirstNameByEmail,
   getAllUsers,
+  updateUser,
+  deleteAccount,
 } = require("../controllers/userController");
 
 //login route
@@ -22,7 +25,18 @@ router.get("/email/:email", getUserByEmail);
 // Get user by first name
 router.get("/fname/:fname", getUserByFname);
 
+// // getUserFirstNameByEmail
+// router.get("/fname/email/:email", getUserFirstNameByEmail);
+
 // Get all users
 router.get("/", getAllUsers);
+
+// ==================== CRUD ====================
+
+// update user
+router.put('/update/:id', updateUser);
+
+// delete user
+router.delete('/delete/:id', deleteAccount);
 
 module.exports = router;

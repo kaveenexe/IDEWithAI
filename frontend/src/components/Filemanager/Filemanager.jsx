@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Filemanager.css";
 import { FileEarmarkPlus, Trash3Fill } from "react-bootstrap-icons";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 
 const Filemanager = ({ onFileSelect }) => {
+
+const Filemanager = () => {
+
   const [files, setFiles] = useState([]);
   const [newFileName, setNewFileName] = useState("");
   const [selectedFileContent, setSelectedFileContent] = useState("");
@@ -16,7 +20,13 @@ const Filemanager = ({ onFileSelect }) => {
       .get("http://localhost:5000/api/files")
       .then((response) => {
         setFiles(response.data);
+
       })
+
+        // console.log(response.data);
+      })
+
+
       .catch((error) => console.error("Error fetching files:", error));
   }, [files]);
 
@@ -73,10 +83,26 @@ const Filemanager = ({ onFileSelect }) => {
       .catch((error) => console.error("Error creating file:", error));
   };
 
+  const handleDeleteFile = (fileId) => {
+    if (window.confirm("Are you sure you want to delete this file?")) {
+      // Send a DELETE request to delete the file
+      axios
+        .delete(`http://localhost:5000/api/files/${fileId}`)
+        .then(() => {
+          // Remove the deleted file from the state
+          setFiles((prevFiles) =>
+            prevFiles.filter((file) => file._id !== fileId)
+          );
+        })
+        .catch((error) => console.error("Error deleting file:", error));
+    }
+  };
+
   return (
     <div>
       <div className="main">
         <h2>File Manager</h2>
+
         <div className="file-input">
           <button className="btn" onClick={handleCreateFile}>
             <FileEarmarkPlus />
@@ -84,6 +110,11 @@ const Filemanager = ({ onFileSelect }) => {
           {/* ToastContainer to display the notifications */}
           <ToastContainer />
         </div>
+
+        <button className="btn">
+          <FileEarmarkPlus />
+        </button>
+
         <ul>
           {files.map((file) => (
             <li key={file._id}>

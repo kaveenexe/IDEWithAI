@@ -2,12 +2,11 @@ const Feedback = require("../models/feedbackModel");
 
 const submitFeedback = async (req, res) => {
   try {
-    const { authorId, recieverId, projectId, feedbackText } = req.body;
+    const { authorId, recieverId, feedbackText } = req.body;
 
     const feedback = new Feedback({
       author: authorId,
       reciever: recieverId,
-      project: projectId,
       feedbackText,
     });
 

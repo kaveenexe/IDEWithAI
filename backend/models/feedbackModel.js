@@ -1,20 +1,24 @@
 const mongoose = require("mongoose");
 
-const feedbackSchema = new mongoose.Schema({
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Invitation",
+const feedbackSchema = new mongoose.Schema(
+  {
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Invitation",
+    },
+    reciever: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    feedbackText: {
+      type: String,
+      required: true,
+    }
   },
-  reciever: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
-  project: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Project",
-  },
-  feedbackText: String,
-});
+  {
+    timestamps: true,
+  }
+);
 
 const Feedback = mongoose.model("Feedback", feedbackSchema);
 
