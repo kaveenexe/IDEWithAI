@@ -1,3 +1,7 @@
+body {
+  background-color: #0E161F;
+}
+
 .upper_container{
   margin: 25px 0 20px 0;
 }
@@ -5,6 +9,7 @@
 .language_label {
   width: 225px;
   display: flex;
+  background-color: #88a5c5;
 }
 
 .language_name{
@@ -32,13 +37,17 @@
 height: 450px;
 width: 700px;
 margin: 0 0 0 10px;
+background-color: #282A36;
 }
 
 .output_p {
   border-radius: 5px 5px 0 0;
-  background-color: #dadada;
+  background-color: #355a74;
   padding : 5px;
+}
 
+.output_pre{
+  margin: 10px;
 }
 
 .search-bar-container {
@@ -60,7 +69,7 @@ width: 100%;
   border-radius: 10px;
   width: 100%;
   min-height: 95px;
-  background-color: #0dcaf0;
+  background-color: #282A36;
   color: white;
   padding: 20px;
   text-align: justify;

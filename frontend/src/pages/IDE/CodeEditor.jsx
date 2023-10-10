@@ -192,20 +192,20 @@ const CodeEditor = () => {
 
   return (
     <>
-
+     
       <Filemanager onFileSelect={handleFileSelect} />
 
 
       <div className="container justify-content-center">
         <div className="codeeditor_maincontainer">
           <div className="upper_container d-flex justify-content-between">
-            <div className="language_label bg-light rounded-3 mt-2 mb-2 border border-3">
-              <p className="language_name">Language: Javascript</p>
+            <div className="language_label rounded-3 mt-2 mb-2 border border-secondary border-2">
+              <p className="language_name">Language: JavaScript</p>
             </div>
 
             <div>
               <button
-                className="btn btn-outline-dark btn_invite"
+                className="btn btn-outline-light btn_invite"
                 variant="light"
                 onClick={handleShow}
               >
@@ -308,7 +308,7 @@ const CodeEditor = () => {
           </div>
 
 
-          <div className="template d-flex align-items-center bg-white">
+          <div className="template d-flex align-items-center">
             <div className="">
               <CodeMirror
                 className="console_container"
@@ -321,7 +321,7 @@ const CodeEditor = () => {
               />
             </div>
 
-            <div className="output_container bg-light rounded">
+            <div className="output_container text-light rounded">
               <p className="output_p">Output:</p>
               <pre className="output_pre">{output}</pre>
             </div>
@@ -333,7 +333,7 @@ const CodeEditor = () => {
           ) : (
             <div className="ai-explain-btn">
               <button
-              className="btn btn-primary run_btn explain_btn"
+              className="btn btn-outline-light run_btn explain_btn"
               onClick={handleAIExplain}
             >
               Explain <Robot />
@@ -348,7 +348,6 @@ const CodeEditor = () => {
 
         
       </div>
-      
     </>
   );
 };

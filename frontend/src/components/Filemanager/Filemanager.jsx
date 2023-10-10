@@ -80,10 +80,10 @@ const Filemanager = ({ onFileSelect }) => {
   return (
     <div>
       <div className="main">
-        <h2>File Manager</h2>
+        <h2 className="text-light">File Manager</h2>
 
         <div className="file-input">
-          <button className="btn" onClick={handleCreateFile}>
+          <button className="btn text-light add-files" onClick={handleCreateFile}>
             <FileEarmarkPlus />
           </button>
           {/* ToastContainer to display the notifications */}
@@ -92,9 +92,9 @@ const Filemanager = ({ onFileSelect }) => {
 
         <ul>
           {files.map((file) => (
-            <li key={file._id}>
-              <button className="btn" onClick={() => handleFileClick(file._id)}>
-                {file.name}
+            <li key={file._id} className="text-light mt-2 mb-2 filenames-delete">
+              <button className="btn text-light" onClick={() => handleFileClick(file._id)}>
+                <div>• {file.name}</div>
               </button>{" "}
               <button
                 className="btn btn-outline-danger"
