@@ -106,3 +106,19 @@ exports.updateFileContent = async (req, res) => {
   }
 }
     
+
+exports.getFileDetails = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const file = await File.findOne({ _id: id }).select('name createdDate lastModifiedDate');
+
+    if (!file) {
+      return res.status(404).json({ error: 'File not found' });
+    }
+
+    res.json(file);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Could not fetch file details' });
+  }
+};

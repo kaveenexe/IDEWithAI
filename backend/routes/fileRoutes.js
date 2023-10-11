@@ -19,4 +19,6 @@ router.get('/:id/content', fileController.getFileContent);
 
 router.put('/:id/content', fileController.updateFileContent);
 
+router.get('/:id/details', fileController.getFileDetails);
+
 module.exports = router;
