@@ -3,13 +3,12 @@ import React, { useState, useEffect } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
-
 import Filemanager from "../../components/Filemanager/Filemanager";
 import { Spinner } from "react-bootstrap";
 import {
   PlayFill,
   SaveFill,
-    QuestionCircleFill,
+  QuestionCircleFill,
   Robot,
   RocketTakeoff,
 } from "react-bootstrap-icons";
@@ -66,11 +65,10 @@ const CodeEditor = () => {
   //Handle API Call Users
   const [results, setResults] = useState([]);
 
-   const handleFileSelect = (content) => {
+  const handleFileSelect = (content) => {
     // Set the content of the selected file in the CodeMirror editor
     setCode(content);
-  }
-
+  };
 
   const handleRunClick = () => {
     // Remove the previous iframe (if it exists)
@@ -99,26 +97,26 @@ const CodeEditor = () => {
     setIframe(newIframe);
   };
 
-    const handleSaveClick = () => {
-      // Ensure there's content to save
-      if (!code) {
-        console.log("No code to save.");
-        return;
-      }
+  const handleSaveClick = () => {
+    // Ensure there's content to save
+    if (!code) {
+      console.log("No code to save.");
+      return;
+    }
 
     const id = localStorage.getItem("fileId");
-      // Send a PUT request to update the file content
-      axios
-        .put(`http://localhost:5000/api/files/${id}/content`, {
-          content: code,
-        })
-        .then((response) => {
-          toast.success("Code updated successfully!");
-        })
-        .catch((error) => {
-          toast.success("Error saving code:", error);
-        });
-    };
+    // Send a PUT request to update the file content
+    axios
+      .put(`http://localhost:5000/api/files/${id}/content`, {
+        content: code,
+      })
+      .then((response) => {
+        toast.success("Code updated successfully!");
+      })
+      .catch((error) => {
+        toast.success("Error saving code:", error);
+      });
+  };
 
   const handleAIExplain = () => {
     const USER_PROMPT = `Code:${code}`;
@@ -156,8 +154,8 @@ const CodeEditor = () => {
 
   // Hnadle the Invitation Send Button
   const handleInvitationSend = () => {
-    const formData = new FormData(); 
-    formData.append( "sender", senderEmail );
+    const formData = new FormData();
+    formData.append("sender", senderEmail);
     formData.append("email", selectedUserEmail);
     formData.append("message", message);
     formData.append("snapshotImage", fileName);
@@ -182,7 +180,6 @@ const CodeEditor = () => {
       })
       .catch((error) => {
         console.error("Error sending invitation:", error);
-
         Swal.fire({
           title: "Oops!",
           text: "Failed to send the Invitation!",
@@ -193,26 +190,20 @@ const CodeEditor = () => {
 
   return (
     <>
-     
       <Filemanager onFileSelect={handleFileSelect} />
-
-
       <div className="container justify-content-center">
         <div className="codeeditor_maincontainer">
           <div className="upper_container d-flex justify-content-between">
             <div className="language_label rounded-3 mt-2 mb-2 border border-secondary border-2">
               <p className="language_name">Language: JavaScript</p>
             </div>
-
             <div>
               <button
                 className="btn btn-outline-light btn_invite"
                 variant="light"
                 onClick={handleShow}
               >
-
                 Get Help <QuestionCircleFill />
-
               </button>
               <button
                 className="btn btn-primary run_btn"
@@ -227,7 +218,6 @@ const CodeEditor = () => {
                 Save <SaveFill />
               </button>
             </div>
-
           </div>
           <div>
             <Modal show={show} onHide={handleClose}>
@@ -307,8 +297,6 @@ const CodeEditor = () => {
               </Modal.Footer>
             </Modal>
           </div>
-
-
           <div className="template d-flex align-items-center">
             <div className="">
               <CodeMirror
@@ -321,7 +309,6 @@ const CodeEditor = () => {
                 theme={dracula}
               />
             </div>
-
             <div className="output_container text-light rounded">
               <p className="output_p">Output:</p>
               <pre className="output_pre">{output}</pre>
@@ -334,20 +321,15 @@ const CodeEditor = () => {
           ) : (
             <div className="ai-explain-btn">
               <button
-              className="btn btn-outline-light run_btn explain_btn"
-              onClick={handleAIExplain}
-            >
-              Explain <Robot />
-            </button>
-            <div className="ai-suggestions">{userContent}</div>
+                className="btn btn-outline-light run_btn explain_btn"
+                onClick={handleAIExplain}
+              >
+                Explain <Robot />
+              </button>
+              <div className="ai-suggestions">{userContent}</div>
             </div>
-            
           )}
-
-          
         </div>
-
-        
       </div>
     </>
   );
