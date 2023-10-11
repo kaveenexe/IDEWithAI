@@ -19,4 +19,9 @@ router.get('/:id/content', fileController.getFileContent);
 
 router.put('/:id/content', fileController.updateFileContent);
 
+router.get('/:id/details', fileController.getFileDetails);
+
+// Extract file details
+router.post('/extract-details', fileController.extractFileDetails);
+
 module.exports = router;

@@ -1,23 +1,75 @@
 .main {
   width: 250px; /* Adjust the width as needed */
   height: 91vh; /* Make it take full height of the page */
-  background-color: #282A36; /* Add a background color for the left panel */
+  background-color: #282a36; /* Add a background color for the left panel */
   float: left; /* Align to the left */
   padding: 20px; /* Add padding for spacing */
   border-radius: 5px;
   margin: 10px;
 }
 
-.filenames-delete{
+.file-input {
+  padding: 30px 0 0 0;
+}
+
+.filenames-delete {
   display: flex;
   justify-content: space-between;
 }
 
 .filenames-delete::marker {
   content: "•"; /* Use any character you want for the bullet point */
-  color: #fff; /* Customize the color if needed */
+  color: #dd1111; /* Customize the color if needed */
 }
 
 .add-files {
   font-size: 25px;
+}
+
+.selected-file {
+  background-color: #0e161f; /* Set the background color to highlight the selected file */
+  color: #fff; /* Set the text color for better contrast */
+  border-radius: 10px;
+}
+
+.mybutton {
+  padding: 6px 5px 0 5px;
+  background-color: #282a36;
+  color: #fff;
+  border: 1px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Add a smooth transition for the background color */
+}
+
+/* Define the button's hover effect */
+.mybutton:hover {
+  background-color: #ffffff;
+  color: black; /* Change the background color on hover */
+}
+
+.h2 {
+  font-size: 20px;
+}
+
+#deletebtn {
+  background-color: #eae6e6;
+  margin: 8px 8px 8px 8px;
+}
+
+.fldetails {
+  font-size: 16px;
+}
+
+.details {
+  font-size: 14px;
+  background-color: #282a36;
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 20px;
+  color: #ffffff;
+}
+
+#deletebtn:hover {
+  background-color: #ff0000;
 }
