@@ -15,7 +15,7 @@
 
 .filenames-delete::marker {
   content: "•"; /* Use any character you want for the bullet point */
-  color: #fff; /* Customize the color if needed */
+  color: #dd1111; /* Customize the color if needed */
 }
 
 .add-files {
