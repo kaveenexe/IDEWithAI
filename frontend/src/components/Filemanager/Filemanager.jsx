@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./Filemanager.css";
-import { FileEarmarkPlus, Trash3Fill } from "react-bootstrap-icons";
-import { Modal, Button } from "react-bootstrap";
-import Swal from "sweetalert2";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './Filemanager.css';
+import { FileEarmarkPlus, Trash3Fill } from 'react-bootstrap-icons';
+import { Modal, Button } from 'react-bootstrap';
+import Swal from 'sweetalert2';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Filemanager = ({ onFileSelect }) => {
   const [files, setFiles] = useState([]);
   const [selectedFileId, setSelectedFileId] = useState(null);
   const [selectedFileDetails, setSelectedFileDetails] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [newFileName, setNewFileName] = useState("");
+  const [newFileName, setNewFileName] = useState('');
+  const [generatedReport, setGeneratedReport] = useState(null);
+  const [content, setContent] = useState('');
 
   const handleShowModal = () => {
     setShowModal(true);
@@ -22,111 +25,105 @@ const Filemanager = ({ onFileSelect }) => {
     setShowModal(false);
   };
 
+  const extractCodeDetails = (content) => {
+   
+    const keywords = content.match(/\b(const|let|var|function|if|else)\b/g);
+    const variables = content.match(/(\w+)\s*=/g);
+
+    return { keywords, variables };
+  };
+
   useEffect(() => {
-    // Replace with the actual API endpoint to fetch files
     axios
-      .get("http://localhost:5000/api/files")
+      .get('http://localhost:5000/api/files')
       .then((response) => {
         setFiles(response.data);
       })
-      // console.log(response.data);
-      .catch((error) => console.error("Error fetching files:", error));
-  }, [files]);
+      .catch((error) => console.error('Error fetching files:', error));
+  }, []);
 
   const handleFileClick = (fileId) => {
-    localStorage.setItem("fileId", fileId);
+    localStorage.setItem('fileId', fileId);
     setSelectedFileId(fileId);
-
+  
     // Fetch the content of the selected file using its ID
     axios
       .get(`http://localhost:5000/api/files/${fileId}/content`)
       .then((response) => {
         onFileSelect(response.data.content);
+  console.log(response.data.content);
+        // Fetch file details after getting the content
+        setContent(response.data.content);
+        return axios.get(`http://localhost:5000/api/files/${fileId}/details`);
+      })
+      .then((responseDetails) => {
+        setSelectedFileDetails(responseDetails.data);
       })
       .catch((error) => {
-        console.error("Error fetching file content:", error);
-        toast.error("Error fetching file content");
-      });
-
-    // Fetch file details
-    axios
-      .get(`http://localhost:5000/api/files/${fileId}/details`)
-      .then((response) => {
-        setSelectedFileDetails(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching file details:", error);
+        console.error('Error fetching file content or details:', error);
+        toast.error('Error fetching file content or details');
       });
   };
-
+  
   const handleDeleteFile = (fileId) => {
-    if (window.confirm("Are you sure you want to delete file?")) {
-      // Send a DELETE request to delete the file
+    if (window.confirm('Are you sure you want to delete the file?')) {
       axios
         .delete(`http://localhost:5000/api/files/${fileId}`)
         .then(() => {
-          // Remove the deleted file from the state
-
           setFiles((prevFiles) =>
             prevFiles.filter((file) => file._id !== fileId)
           );
-          // Display a success toast notification
-          toast.success("File deleted successfully!");
+          toast.success('File deleted successfully!');
         })
-        .catch((error) => console.error("Error deleting file:", error));
+        .catch((error) => console.error('Error deleting file:', error));
     }
   };
 
   const handleCreateFile = () => {
-    if (!newFileName.endsWith(".js")) {
-      // alert("File name must end with '.js'");
-
+    if (!newFileName.endsWith('.js')) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
+        icon: 'error',
+        title: 'Oops...',
         text: 'File name must end with ".js"!',
       });
     } else {
-      // Send a POST request to create a new file
       axios
-        .post("http://localhost:5000/api/files", { name: newFileName })
+        .post('http://localhost:5000/api/files', { name: newFileName })
         .then((response) => {
           setFiles((prevFiles) => [...prevFiles, response.data]);
-          // Display a success toast notification
-          toast.success("File created successfully!");
-          // Close the modal
+          toast.success('File created successfully!');
           handleCloseModal();
-
-          setNewFileName("");
+          setNewFileName('');
         })
-        .catch((error) => console.error("Error creating file:", error));
+        .catch((error) => console.error('Error creating file:', error));
     }
   };
 
-  // const handleCreateFile = () => {
-  //   // Prompt the user for the new file name
-  //   const newFileName = prompt("Enter a new file name:");
-  //   if (newFileName === null || newFileName.trim() === "") {
-  //     // Check if the user canceled or entered an empty name
-  //     return;
-  //   }
 
-  //   // Check if the newFileName ends with ".js"
-  //   if (!newFileName.endsWith(".js")) {
-  //     alert("File name must end with '.js'");
-  //     return;
-  //   }
+  const handleGenerateReport = (content) => {
+    if (content) {
+      const codeDetails = extractCodeDetails(content);
+      const report = generateReport(content, codeDetails);
+      setGeneratedReport(report);
+      console.log(report);
+    } else {
+      // Handle the case when content is undefined
+      // For example, you can show an error message or handle it as needed.
+      console.error('Content is undefined or null.');
+    }
+  };  
 
-  //   // Send a POST request to create a new file
-  //   axios
-  //     .post("http://localhost:5000/api/files", { name: newFileName })
-  //     .then((response) => {
-  //       setFiles((prevFiles) => [...prevFiles, response.data]);
-  //       // Display a success toast notification
-  //       toast.success("File created successfully!");
-  //     })
-  //     .catch((error) => console.error("Error creating file:", error));
-  // };
+  const generateReport = (content, codeDetails) => {
+    return {
+      fileName: selectedFileDetails.name,
+      fileContent: content,
+      createdDate: new Date(selectedFileDetails.createdDate).toLocaleDateString(),
+      lastModifiedDate: new Date(selectedFileDetails.lastModifiedDate).toLocaleDateString(),
+      fileType: 'JavaScript',
+      keywords: codeDetails.keywords,
+      variables: codeDetails.variables,
+    };
+  };
 
   return (
     <div>
@@ -159,14 +156,10 @@ const Filemanager = ({ onFileSelect }) => {
           <button className="mybutton" onClick={handleShowModal}>
             <h2 className="h2">Create File</h2>
           </button>
-          <button
-            className="btn text-light add-files"
-            onClick={handleShowModal}
-          >
+          <button className="btn text-light add-files" onClick={handleShowModal}>
             <FileEarmarkPlus />
           </button>
 
-          {/* ToastContainer to display the notifications */}
           <ToastContainer />
         </div>
 
@@ -175,7 +168,7 @@ const Filemanager = ({ onFileSelect }) => {
             <li
               key={file._id}
               className={`text-light mt-2 mb-2 filenames-delete ${
-                selectedFileId === file._id ? "selected-file" : ""
+                selectedFileId === file._id ? 'selected-file' : ''
               }`}
             >
               <button
@@ -184,11 +177,11 @@ const Filemanager = ({ onFileSelect }) => {
                 onClick={() => handleFileClick(file._id)}
               >
                 <div>• {file.name}</div>
-              </button>{" "}
+              </button>{' '}
               <button
                 className="btn btnd"
                 id="deletebtn"
-                onClick={() => handleDeleteFile(file._id)} // Attach delete function
+                onClick={() => handleDeleteFile(file._id)}
               >
                 <Trash3Fill className="trashbtn" />
               </button>
@@ -201,32 +194,29 @@ const Filemanager = ({ onFileSelect }) => {
           <h3 className="fldetails">File Details</h3>
           {selectedFileDetails && (
             <div className="file-details">
-              {/* <h3>File Details</h3> */}
               <br />
               <p>File Name: {selectedFileDetails.name}</p>
               <div>
-                Created Date:{" "}
+                Created Date:{' '}
                 {new Date(selectedFileDetails.createdDate).toLocaleDateString()}
               </div>
               <div>
-                Last Modified Date:{" "}
-                {new Date(
-                  selectedFileDetails.lastModifiedDate
-                ).toLocaleDateString()}
+                Last Modified Date:{' '}
+                {new Date(selectedFileDetails.lastModifiedDate).toLocaleDateString()}
               </div>
               <div>
-                Last Modified Time:{" "}
-                {new Date(
-                  selectedFileDetails.lastModifiedDate
-                ).toLocaleTimeString("en-US", {
-                  hour: "numeric",
-                  minute: "numeric",
+                Last Modified Time:{' '}
+                {new Date(selectedFileDetails.lastModifiedDate).toLocaleTimeString('en-US', {
+                  hour: 'numeric',
+                  minute: 'numeric',
                   hour12: true,
                 })}
-              </div>{" "}
+              </div>{' '}
             </div>
           )}
+<button onClick={() => handleGenerateReport(content)}>Generate Report</button>
         </div>
+        
       </div>
     </div>
   );
