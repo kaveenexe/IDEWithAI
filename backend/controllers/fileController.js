@@ -1,6 +1,5 @@
 // controllers/fileController.js
 const File = require("../models/filemodel");
-const esprima = require("esprima");
 
 // Create a new file
 exports.createFile = async (req, res) => {
