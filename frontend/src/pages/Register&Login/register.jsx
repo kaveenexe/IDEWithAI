@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSignup } from "../../hooks/useSignup";
 import { ArrowRight } from "react-bootstrap-icons";
-
+import "./styles.css"
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
