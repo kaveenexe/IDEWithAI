@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 const Filemanager = ({ onFileSelect }) => {
 
   const [files, setFiles] = useState([]);
+  const [selectedFileId, setSelectedFileId] = useState(null);
   // const [newFileName, setNewFileName] = useState("");
   // const [selectedFileContent, setSelectedFileContent] = useState("");
 
@@ -26,6 +27,7 @@ const Filemanager = ({ onFileSelect }) => {
   const handleFileClick = (fileId) => {
 
     localStorage.setItem("fileId", fileId);
+    setSelectedFileId(fileId);
 
     // Fetch the content of the selected file using its ID
     axios
@@ -48,6 +50,7 @@ const Filemanager = ({ onFileSelect }) => {
         .delete(`http://localhost:5000/api/files/${fileId}`)
         .then(() => {
           // Remove the deleted file from the state
+          
           setFiles((prevFiles) =>
             prevFiles.filter((file) => file._id !== fileId)
           );
@@ -65,6 +68,13 @@ const Filemanager = ({ onFileSelect }) => {
       // Check if the user canceled or entered an empty name
       return;
     }
+
+    // Check if the newFileName ends with ".js"
+  if (!newFileName.endsWith(".js")) {
+    alert("File name must end with '.js'");
+    return;
+  }
+
     // Send a POST request to create a new file
     axios
       .post("http://localhost:5000/api/files", { name: newFileName })
@@ -83,24 +93,36 @@ const Filemanager = ({ onFileSelect }) => {
         <h2 className="text-light">File Manager</h2>
 
         <div className="file-input">
+          <button className="mybutton" onClick={handleCreateFile} >
+            <h2 className="h2">
+              Create File
+            </h2>
+          </button>
           <button className="btn text-light add-files" onClick={handleCreateFile}>
             <FileEarmarkPlus />
           </button>
+
           {/* ToastContainer to display the notifications */}
           <ToastContainer />
         </div>
 
         <ul>
           {files.map((file) => (
-            <li key={file._id} className="text-light mt-2 mb-2 filenames-delete">
+            <li
+            key={file._id}
+            className={`text-light mt-2 mb-2 filenames-delete ${
+              selectedFileId === file._id ? "selected-file" : ""
+            }`}
+          >
               <button className="btn text-light" onClick={() => handleFileClick(file._id)}>
                 <div>• {file.name}</div>
               </button>{" "}
               <button
-                className="btn btn-outline-danger"
+                className="btn btnd"
+                id="deletebtn"
                 onClick={() => handleDeleteFile(file._id)} // Attach delete function
               >
-                <Trash3Fill />
+                <Trash3Fill className="trashbtn"/>
               </button>
             </li>
           ))}

@@ -51,7 +51,7 @@ const CodeEditor = () => {
 
   // Code Editor
   const [output, setOutput] = useState("");
-  const [code, setCode] = useState('console.log("Hello, world!");');
+  const [code, setCode] = useState('');
   const [selectedFileContent, setSelectedFileContent] = useState(null);
 
   const [userContent, setUserContent] = useState(null);
@@ -70,7 +70,6 @@ const CodeEditor = () => {
     // Set the content of the selected file in the CodeMirror editor
     setCode(content);
   }
-
 
   const handleRunClick = () => {
     // Remove the previous iframe (if it exists)
