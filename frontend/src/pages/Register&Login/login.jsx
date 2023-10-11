@@ -3,6 +3,7 @@ import { useLogin } from "../../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "react-bootstrap-icons";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,10 +15,23 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await login(email, password);
+    const loginResult = await login(email, password);
 
-    if (user){
-      navigate("/")
+    if (user) {
+      // If the login is successful, show a success alert and redirect
+      Swal.fire({
+        icon: "success",
+        title: "Logged in successfully",
+      }).then(() => {
+        navigate("/");
+      });
+    } else {
+      // If there's an error, show an error alert
+      Swal.fire({
+        icon: "error",
+        title: "Login failed",
+        text: loginResult, // Display the login error message
+      });
     }
   };
 
