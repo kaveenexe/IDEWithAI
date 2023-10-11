@@ -9,6 +9,7 @@ import IDE from "./pages/IDE/CodeEditor";
 import UserDB from "./pages/UserDB/Dashboard";
 import Community from "./pages/Community/Community";
 import { useAuthContext } from "./hooks/useAuthContext";
+import ActivityTracker from "./components/UserActivity/ActivityTracker";
 import "./App.css";
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
           <Route path="/code-editor" element={<IDE />} />
           <Route path="/dashboard" element={<UserDB />} />
           <Route path="/community" element={<Community />} />
+          <Route path="/user-activity" element={<ActivityTracker />} />
         </Routes>
       </BrowserRouter>
     </div>

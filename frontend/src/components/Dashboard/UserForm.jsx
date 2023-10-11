@@ -190,7 +190,7 @@ function UserForm() {
           </Button>
 
           <Button className="btn mt-3 mb-1 ">
-            Generate Report
+             <a href="/user-activity">Generate Report</a>
           </Button>
         </div>
       </Form>
