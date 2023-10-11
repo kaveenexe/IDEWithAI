@@ -37,4 +37,16 @@ router.get("/by-reciever/:reciever", (req, res) => {
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
+// Find feedback by receiver email and get count
+router.get("/count/by-receiver/:receiver", async (req, res) => {
+  const receiver = req.params.receiver;
+
+  try {
+    const count = await Feedback.countDocuments({ receiver: receiver });
+    res.json({ count });
+  } catch (err) {
+    res.status(400).json(`Error: ${err}`);
+  }
+});
+
 module.exports = router;

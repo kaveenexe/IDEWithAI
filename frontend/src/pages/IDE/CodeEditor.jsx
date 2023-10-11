@@ -169,6 +169,7 @@ const CodeEditor = () => {
           title: "Done!",
           text: "Invitation Send Successfully...",
           icon: "success",
+          timer: 2000,
         }).then(() => {
           window.location.href = "/code-editor";
         });

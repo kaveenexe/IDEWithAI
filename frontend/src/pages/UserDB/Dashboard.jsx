@@ -96,7 +96,7 @@ const Dashboard = () => {
 
   return (
     <div className="db_container">
-      <div className="background ">
+      <div className="background">
         <div className="dashbord_background justify-content-center container align-items-center">
           <h1 className="dashboard_title"> Dashboard </h1>
         </div>
@@ -105,7 +105,7 @@ const Dashboard = () => {
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
           <Row>
             <Col sm={3}>
-              <Nav variant="pills" className="flex-column dashboard_tabs">
+              <Nav variant="pills" className="flex-column dashboard_tabs bg-dark text-light">
                 <UserRetrieve className="" />
                 <Nav.Item>
                   <Nav.Link eventKey="first">Profile</Nav.Link>
@@ -144,14 +144,14 @@ const Dashboard = () => {
             </Col>
             <Col sm={9}>
               <Tab.Content>
-                <Tab.Pane eventKey="first" className="dbtab_details">
+                <Tab.Pane eventKey="first" className="dbtab_details bg-dark text-light">
                   <UserForm />
                   <DeleteUser />
                 </Tab.Pane>
-                <Tab.Pane eventKey="second" className="dbtab_details">
+                <Tab.Pane eventKey="second" className="dbtab_details bg-dark text-light">
                   <Invitation />
                 </Tab.Pane>
-                <Tab.Pane eventKey="third" className="dbtab_details">
+                <Tab.Pane eventKey="third" className="dbtab_details bg-dark text-light">
                   <Feedback />
                 </Tab.Pane>
               </Tab.Content>
