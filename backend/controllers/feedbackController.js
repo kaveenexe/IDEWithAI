@@ -1,24 +1,5 @@
 const Feedback = require("../models/feedbackModel");
 
-const submitFeedback = async (req, res) => {
-  try {
-    const { author, reciever, feedbackText } = req.body;
-
-    const feedback = new Feedback({
-      author,
-      reciever,
-      feedbackText,
-    });
-
-    await feedback.save();
-
-    res.status(201).json({ feedback });
-  } catch (error) {
-    console.error("Error submitting feedback:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
-
 const getFeedbackByAuthorEmail = async (req, res) => {
   try {
     const author = req.params.author;
@@ -50,7 +31,6 @@ const deleteFeedbackById = async (req, res) => {
 };
 
 module.exports = {
-  submitFeedback,
   getFeedbackByAuthorEmail,
   deleteFeedbackById,
 };
