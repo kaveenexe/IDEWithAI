@@ -4,7 +4,7 @@ import axios from "axios";
 import Card from "react-bootstrap/Card";
 import Swal from "sweetalert2";
 import Button from "react-bootstrap/Button";
-import { Trash3Fill, EyeFill } from "react-bootstrap-icons";
+import { Trash3Fill } from "react-bootstrap-icons";
 import "./Styles-Feedback.css";
 
 const Feedback = () => {
@@ -73,15 +73,7 @@ const Feedback = () => {
                     <td>{feedback.message}</td>
                     <td>
                       <Button
-                        className="viewBtn"
-                        variant="primary"
-                        style={{ padding: "5px 20px" }}
-                        onClick={() => removeFeedback(feedback._id)}
-                      >
-                        <EyeFill className="viewIcon" />
-                      </Button>{" "}
-                      <Button
-                        className="deleteBtn"
+                        className="deletebtn"
                         variant="danger"
                         onClick={() => removeFeedback(feedback._id)}
                       >

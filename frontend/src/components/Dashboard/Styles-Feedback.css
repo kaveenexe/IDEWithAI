@@ -54,18 +54,12 @@
   color: rgb(255, 255, 255);
 }
 
-.deleteBtn {
+.deletebtn {
   background: #ff5858;
   border: 2px solid #ffffff;
   height: 40px;
   margin-left: 50px;
-  margin-top: -66.5px;
-}
-
-.viewBtn {
-  background: #9b58ff;
-  border: 2px solid #ffffff;
-  height: 40px;
+  margin-top: -0px;
 }
 
 .col-lg-3{
