@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useSignup } from "../../hooks/useSignup";
 import { ArrowRight } from "react-bootstrap-icons";
+import MySwal from "sweetalert2";
+
 import "./styles.css"
+
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +17,7 @@ const Signup = () => {
 
     await signup({ email, fname, lname, password });
     // console.log("Submitting Submitting:", email, fname, lname, password);
+
   };
 
   return (
@@ -47,7 +51,7 @@ const Signup = () => {
             <div className="mb-2 pb-2">
               <label htmlFor="">Email: </label>
               <input
-                type="email"
+                type="text"
                 placeholder="Enter email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
