@@ -61,6 +61,19 @@ router.delete("/delete/:id", (req, res) => {
   .catch((err) => res.status(400).json(`Error: ${err}`));
 } );
 
+// Find invitation by email and get count
+router.get("/count/:email", async (req, res) => {
+  const email = req.params.email;
+
+  try {
+    const count = await Invitation.countDocuments({ email: email });
+    res.json({ count });
+  } catch (err) {
+    res.status(400).json(`Error: ${err}`);
+  }
+});
+
+
 // Find invitation by sender
 router.get("/get-invitation/:sender", inviteController.getInvitationBySender);
 
