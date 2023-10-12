@@ -65,7 +65,7 @@ const Feedback = () => {
                 </tr>
               </thead>
               <tbody className="tbody">
-                {feedback.map((feedback) => (
+                {/* {feedback.map((feedback) => (
                   <tr key={feedback._id}>
                     <td>{feedback.sender}</td>
                     <td>{feedback.message}</td>
@@ -79,7 +79,7 @@ const Feedback = () => {
                       </Button>
                     </td>
                   </tr>
-                ))}
+                ))} */}
               </tbody>
             </table>
           </Card.Body>
