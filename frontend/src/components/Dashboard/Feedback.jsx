@@ -15,16 +15,17 @@ const Feedback = () => {
   const [feedback, setFeedback] = useState([]);
 
   useEffect(() => {
+    // Make a GET request to your backend API
     axios
       .get(`http://localhost:5000/api/feedback/by-reciever/${userData.email}`)
       .then((response) => {
-        console.log("Feedback Data:", response.data);
-        setFeedback(response.data.feedback);
+        // Set the feedback data when the data is received
+        setFeedback(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error fetching feedback data:", error);
       });
-  }, [userData.email]);
+  }, []);
 
   // Delete Feedbacks
   const removeFeedback = (id) => {
@@ -67,8 +68,8 @@ const Feedback = () => {
               <tbody className="tbody">
                 {feedback.map((feedback) => (
                   <tr key={feedback._id}>
-                    <td>{feedback.sender}</td>
-                    <td>{feedback.message}</td>
+                    <td>{feedback.author}</td>
+                    <td>{feedback.feedbackText}</td>
                     <td>
                       <Button
                         className="deletebtn"
