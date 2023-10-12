@@ -142,6 +142,19 @@ function UserForm() {
       });
   }, []);
 
+  const [fileCount, setFileCount] = useState(0);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/api/files/count`)
+      .then((response) => {
+        setFileCount(response.data.count);
+      })
+      .catch((error) => {
+        console.error("Error fetching file count:", error);
+      });
+  }, []);
+  
 
   // ============ USER REPORT ============
   const createPDF = async () => {
@@ -176,6 +189,9 @@ function UserForm() {
 
     const mainContent4 = "User's Notifications Count:  " + invitationCount;
     page.drawText(mainContent4, { x: 50, y: 160, size: 23, color: rgb(0, 0, 0) });
+
+    const fileCountContent = "Your Current File Count is:  " + fileCount;
+    page.drawText(fileCountContent, { x: 50, y: 130, size: 23, color: rgb(0, 0, 0) });
 
     const pdfBytes = await pdfDoc.save();
 

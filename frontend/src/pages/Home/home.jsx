@@ -45,7 +45,7 @@ function Home() {
             </h1>
             <br />
             <h4>
-              Unlock Your Coding Potential with Our
+              Unlock Your Coding Potential With Our
               <br />
               AI-Powered JavaScript IDE for Beginners!
             </h4>

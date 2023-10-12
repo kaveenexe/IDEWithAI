@@ -24,4 +24,7 @@ router.get('/:id/details', fileController.getFileDetails);
 // Extract file details
 router.post('/extract-details', fileController.extractFileDetails);
 
+//count 
+router.get('/count', fileController.getCountOfFiles);
+
 module.exports = router;

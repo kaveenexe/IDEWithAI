@@ -128,6 +128,18 @@ exports.getFileDetails = async (req, res) => {
   }
 };
 
+
+// ========================== Get count of files
+exports.getCountOfFiles = async (req, res) => {
+  try {
+    const count = await File.countDocuments();
+    res.json({ count });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Could not fetch file count" });
+  }
+};
+
 // Extract file details
 exports.extractFileDetails = async (req, res) => {
   try {
