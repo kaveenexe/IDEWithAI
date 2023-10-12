@@ -4,12 +4,14 @@ const feedbackController = require("../controllers/feedbackController");
 const Feedback = require("../models/feedbackModel");
 
 router.post("/submit-feedback", (req, res) => {
-  const { feedbackText } = req.body;
+  const { author, reciever, feedbackText } = req.body;
   if (!feedbackText) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
   const feedback = new Feedback({
+    author,
+    reciever,
     feedbackText,
   });
 

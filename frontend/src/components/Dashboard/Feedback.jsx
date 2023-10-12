@@ -16,17 +16,15 @@ const Feedback = () => {
 
   useEffect(() => {
     axios
-      // .get(`http://localhost:5000/api/feedback/by-reciever/${userData.email}`)
-      .get(
-        "http://localhost:5000/api/feedback/by-reciever/kaveenuththara@gmail.com"
-      )
+      .get(`http://localhost:5000/api/feedback/by-reciever/${userData.email}`)
       .then((response) => {
-        setFeedback(response.data);
+        console.log("Feedback Data:", response.data);
+        setFeedback(response.data.feedback);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [userData.email]);
 
   // Delete Feedbacks
   const removeFeedback = (id) => {
