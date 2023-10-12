@@ -10,6 +10,7 @@ import DeleteUser from "../../components/Dashboard/DeleteUser";
 import UserRetrieve from "../../components/Dashboard/UserRetrieve";
 import Invitation from "../../components/Dashboard/Invitation";
 import Feedback from "../../components/Dashboard/Feedback";
+import SendFeedback from "../../components/Dashboard/SendFeedback";
 import "./styles.css";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -114,7 +115,10 @@ const Dashboard = () => {
                   <Nav.Link eventKey="second">Invitaions</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="third">Feedbacks</Nav.Link>
+                  <Nav.Link eventKey="third">Recieved Feedbacks</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="fourth">Send Feedbacks</Nav.Link>
                 </Nav.Item>
               </Nav>
               <Card className="join-card">
@@ -153,6 +157,9 @@ const Dashboard = () => {
                 </Tab.Pane>
                 <Tab.Pane eventKey="third" className="dbtab_details bg-dark text-light">
                   <Feedback />
+                </Tab.Pane>
+                <Tab.Pane eventKey="fourth" className="dbtab_details bg-dark text-light">
+                  <SendFeedback />
                 </Tab.Pane>
               </Tab.Content>
             </Col>

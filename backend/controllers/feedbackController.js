@@ -30,7 +30,46 @@ const deleteFeedbackById = async (req, res) => {
   }
 };
 
+// Get feedback by author email
+const getFeedbackByreciever = async (req, res) => {
+  try {
+    const reciever = req.params.reciever;
+
+    const feedback = await Feedback.findOne({ reciever: reciever });
+    res.json({ feedback });
+  } catch (error) {
+    console.error("Error fetching feedback:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// Update feedback
+const updateFeedbackByAuthor = async (req, res) => {
+  try {
+    const author = req.params.author;
+    const { feedbackText } = req.body;
+
+    const feedback = await Feedback.findOneAndUpdate(
+      { author: author },
+      { feedbackText: feedbackText },
+      { new: true }
+    );
+
+    if (!feedback) {
+      return res.status(404).json("Feedback not found");
+    }
+
+    res.json(feedback);
+  } catch (error) {
+    console.error("Error updating feedback:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
 module.exports = {
   getFeedbackByAuthorEmail,
   deleteFeedbackById,
+  getFeedbackByreciever,
+  updateFeedbackByAuthor,
 };

@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './Filemanager.css';
-import { FileEarmarkPlus, Trash3Fill } from 'react-bootstrap-icons';
-import { Modal, Button } from 'react-bootstrap';
-import Swal from 'sweetalert2';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { PDFDocument, rgb,StandardFonts } from 'pdf-lib';
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./Filemanager.css";
+import { FileEarmarkPlus, Trash3Fill } from "react-bootstrap-icons";
+import { Modal, Button } from "react-bootstrap";
+import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 
 const Filemanager = ({ onFileSelect }) => {
   const [files, setFiles] = useState([]);
   const [selectedFileId, setSelectedFileId] = useState(null);
   const [selectedFileDetails, setSelectedFileDetails] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [newFileName, setNewFileName] = useState('');
+  const [newFileName, setNewFileName] = useState("");
   const [generatedReport, setGeneratedReport] = useState(null);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
 
   const handleShowModal = () => {
     setShowModal(true);
@@ -27,32 +26,40 @@ const Filemanager = ({ onFileSelect }) => {
   };
 
   const extractCodeDetails = (content) => {
-   
-    const keywords = content.match(/\b(const|let|var|function|if|else)\b/g);
-    const variables = content.match(/(\w+)\s*=/g);
-
+    const keywordsRegex = /\b(const|let|var|function|if|else|while|for|switch|case|break|return|try|catch|finally|throw)\b/g;
+    const variablesRegex = /(\w+)\s*=/g;
+  
+    const keywordsMatches = content.match(keywordsRegex);
+    const variablesMatches = content.match(variablesRegex);
+  
+    const keywords = keywordsMatches ? keywordsMatches : [];
+    const variables = variablesMatches
+      ? variablesMatches.map((match) => match.replace(/\s*=/, ''))
+      : [];
+  
     return { keywords, variables };
   };
+  
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/files')
+      .get("http://localhost:5000/api/files")
       .then((response) => {
         setFiles(response.data);
       })
-      .catch((error) => console.error('Error fetching files:', error));
+      .catch((error) => console.error("Error fetching files:", error));
   }, []);
 
   const handleFileClick = (fileId) => {
-    localStorage.setItem('fileId', fileId);
+    localStorage.setItem("fileId", fileId);
     setSelectedFileId(fileId);
-  
+
     // Fetch the content of the selected file using its ID
     axios
       .get(`http://localhost:5000/api/files/${fileId}/content`)
       .then((response) => {
         onFileSelect(response.data.content);
-  console.log(response.data.content);
+        console.log(response.data.content);
         // Fetch file details after getting the content
         setContent(response.data.content);
         return axios.get(`http://localhost:5000/api/files/${fileId}/details`);
@@ -61,45 +68,44 @@ const Filemanager = ({ onFileSelect }) => {
         setSelectedFileDetails(responseDetails.data);
       })
       .catch((error) => {
-        console.error('Error fetching file content or details:', error);
-        toast.error('Error fetching file content or details');
+        console.error("Error fetching file content or details:", error);
+        toast.error("Error fetching file content or details");
       });
   };
-  
+
   const handleDeleteFile = (fileId) => {
-    if (window.confirm('Are you sure you want to delete the file?')) {
+    if (window.confirm("Are you sure you want to delete the file?")) {
       axios
         .delete(`http://localhost:5000/api/files/${fileId}`)
         .then(() => {
           setFiles((prevFiles) =>
             prevFiles.filter((file) => file._id !== fileId)
           );
-          toast.success('File deleted successfully!');
+          toast.success("File deleted successfully!");
         })
-        .catch((error) => console.error('Error deleting file:', error));
+        .catch((error) => console.error("Error deleting file:", error));
     }
   };
 
   const handleCreateFile = () => {
-    if (!newFileName.endsWith('.js')) {
+    if (!newFileName.endsWith(".js")) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
+        icon: "error",
+        title: "Oops...",
         text: 'File name must end with ".js"!',
       });
     } else {
       axios
-        .post('http://localhost:5000/api/files', { name: newFileName })
+        .post("http://localhost:5000/api/files", { name: newFileName })
         .then((response) => {
           setFiles((prevFiles) => [...prevFiles, response.data]);
-          toast.success('File created successfully!');
+          toast.success("File created successfully!");
           handleCloseModal();
-          setNewFileName('');
+          setNewFileName("");
         })
-        .catch((error) => console.error('Error creating file:', error));
+        .catch((error) => console.error("Error creating file:", error));
     }
   };
-
 
   const handleGenerateReport = () => {
     if (selectedFileDetails && content) {
@@ -110,30 +116,39 @@ const Filemanager = ({ onFileSelect }) => {
       // Generate and download the PDF report
       generateAndDownloadPDF(report);
     } else {
-      console.error('Content or file details are undefined.');
+      console.error("Content or file details are undefined.");
     }
   };
-  
 
   const generateReport = (fileDetails, codeDetails) => {
     return {
       fileName: fileDetails.name,
       createdDate: new Date(fileDetails.createdDate).toLocaleDateString(),
-      lastModifiedDate: new Date(fileDetails.lastModifiedDate).toLocaleDateString(),
-      fileType: 'JavaScript',
+      lastModifiedDate: new Date(
+        fileDetails.lastModifiedDate
+      ).toLocaleDateString(),
+      fileType: "JavaScript",
       keywords: codeDetails.keywords,
       variables: codeDetails.variables,
     };
   };
 
-  const generateAndDownloadPDF = async (report,fileDetails) => {
+  const generateAndDownloadPDF = async (report, fileDetails) => {
     const pdfDoc = await PDFDocument.create();
     const page = pdfDoc.addPage([600, 400]);
     const content = generateReportContent(report);
     const headerContent = "DEVMIND";
-    page.drawText(headerContent, { x: 200, y: 350, size: 50, color: rgb(0, 0, 1), alignment: 'center', lineHeight: 16, font: await pdfDoc.embedFont(StandardFonts.Helvetica), });
-    
-    const headerText2 = fileDetails.name + "'s Report";
+    page.drawText(headerContent, {
+      x: 200,
+      y: 350,
+      size: 50,
+      color: rgb(0, 0, 1),
+      alignment: "center",
+      lineHeight: 16,
+      font: await pdfDoc.embedFont(StandardFonts.Helvetica),
+    });
+
+    const headerText2 = "File's Report";
     page.drawText(headerText2, {
       x: 210,
       y: 310, // Adjust the y position as needed
@@ -142,10 +157,8 @@ const Filemanager = ({ onFileSelect }) => {
       font: await pdfDoc.embedFont(StandardFonts.Helvetica),
       lineHeight: 12,
       maxWidth: 500,
-      alignment: 'center',
+      alignment: "center",
     });
-
-
 
     page.drawText(content, {
       x: 50,
@@ -160,13 +173,12 @@ const Filemanager = ({ onFileSelect }) => {
   };
 
   const downloadPDF = (pdfBytes, filename) => {
-    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-    const link = document.createElement('a');
+    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+    const link = document.createElement("a");
     link.href = window.URL.createObjectURL(blob);
     link.download = filename;
     link.click();
   };
-
 
   const generateReportContent = (report) => {
     // Customize this as needed to format your report content
@@ -175,8 +187,8 @@ const Filemanager = ({ onFileSelect }) => {
       Created Date: ${report.createdDate}
       Last Modified Date: ${report.lastModifiedDate}
       File Type: ${report.fileType}
-      Keywords: ${report.keywords.join(', ')}
-      Variables: ${report.variables.join(', ')}
+      Keywords: ${report.keywords.join(", ")}
+      Variables: ${report.variables.join(", ")}
     `;
   };
 
@@ -211,7 +223,10 @@ const Filemanager = ({ onFileSelect }) => {
           <button className="mybutton" onClick={handleShowModal}>
             <h2 className="h2">Create File</h2>
           </button>
-          <button className="btn text-light add-files" onClick={handleShowModal}>
+          <button
+            className="btn text-light add-files"
+            onClick={handleShowModal}
+          >
             <FileEarmarkPlus />
           </button>
 
@@ -223,7 +238,7 @@ const Filemanager = ({ onFileSelect }) => {
             <li
               key={file._id}
               className={`text-light mt-2 mb-2 filenames-delete ${
-                selectedFileId === file._id ? 'selected-file' : ''
+                selectedFileId === file._id ? "selected-file" : ""
               }`}
             >
               <button
@@ -232,7 +247,7 @@ const Filemanager = ({ onFileSelect }) => {
                 onClick={() => handleFileClick(file._id)}
               >
                 <div>• {file.name}</div>
-              </button>{' '}
+              </button>{" "}
               <button
                 className="btn btnd"
                 id="deletebtn"
@@ -252,26 +267,31 @@ const Filemanager = ({ onFileSelect }) => {
               <br />
               <p>File Name: {selectedFileDetails.name}</p>
               <div>
-                Created Date:{' '}
+                Created Date:{" "}
                 {new Date(selectedFileDetails.createdDate).toLocaleDateString()}
               </div>
               <div>
-                Last Modified Date:{' '}
-                {new Date(selectedFileDetails.lastModifiedDate).toLocaleDateString()}
+                Last Modified Date:{" "}
+                {new Date(
+                  selectedFileDetails.lastModifiedDate
+                ).toLocaleDateString()}
               </div>
               <div>
-                Last Modified Time:{' '}
-                {new Date(selectedFileDetails.lastModifiedDate).toLocaleTimeString('en-US', {
-                  hour: 'numeric',
-                  minute: 'numeric',
+                Last Modified Time:{" "}
+                {new Date(
+                  selectedFileDetails.lastModifiedDate
+                ).toLocaleTimeString("en-US", {
+                  hour: "numeric",
+                  minute: "numeric",
                   hour12: true,
                 })}
-              </div>{' '}
+              </div>{" "}
             </div>
           )}
-<button onClick={() => handleGenerateReport(content)}>Generate Report</button>
+          <button onClick={() => handleGenerateReport(content)} className = "btn" id="genbtn">
+            Generate Report
+          </button>
         </div>
-        
       </div>
     </div>
   );
