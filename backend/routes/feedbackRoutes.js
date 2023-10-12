@@ -51,4 +51,7 @@ router.get("/count/by-receiver/:receiver", async (req, res) => {
   }
 });
 
+router.get("/by-author/:reciever", feedbackController.getFeedbackByreciever); // Add this line
+router.put("/by-author/:author", feedbackController.updateFeedbackByAuthor); // Add this line
+
 module.exports = router;
