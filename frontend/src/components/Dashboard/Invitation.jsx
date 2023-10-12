@@ -122,6 +122,7 @@ const Invitation = () => {
         </p>
         <Card>
           <Card.Body>
+          <div style={{ overflow: 'auto', maxHeight: '250px' }}>
             <table className="table">
               <thead className="thead">
                 <tr>
@@ -154,6 +155,7 @@ const Invitation = () => {
                 ))}
               </tbody>
             </table>
+            </div>
           </Card.Body>
         </Card>
 
