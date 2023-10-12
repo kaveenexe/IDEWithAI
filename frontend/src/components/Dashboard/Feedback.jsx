@@ -158,7 +158,7 @@ const Feedback = () => {
                 </tr>
               </thead>
               <tbody className="tbody">
-                {feedback.map((feedback) => (
+                {/* {feedback.map((feedback) => (
                   <tr key={feedback._id}>
                     <td>{feedback.author}</td>
                     <td>{feedback.feedbackText}</td>
@@ -172,7 +172,7 @@ const Feedback = () => {
                       </Button>
                     </td>
                   </tr>
-                ))}
+                ))} */}
               </tbody>
             </table>
             </div>
