@@ -26,6 +26,19 @@ const Feedback = () => {
       .catch((error) => {
         console.error("Error fetching feedback data:", error);
       });
+  }, [] );
+
+  const [invitation, setInvitation] = useState([]);
+  
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/api/invitation/${userData.email}`)
+      .then((response) => {
+        setInvitation(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   // Delete Feedbacks
@@ -56,13 +69,13 @@ const Feedback = () => {
 
     // Add a header to the PDF
     const headerContent = "DEVMIND";
-    page.drawText(headerContent, { x: 200, y: 750, size: 50, color: rgb(0, 0, 1), alignment: 'center', lineHeight: 16, font: await pdfDoc.embedFont(StandardFonts.Helvetica), });
+    page.drawText(headerContent, { x: 200, y: 750, size: 40, color: rgb(0, 0, 1), alignment: 'center', lineHeight: 16, font: await pdfDoc.embedFont(StandardFonts.Helvetica), });
 
     const headerText2 = userData.fname + "'s Report";
     page.drawText(headerText2, {
       x: 210,
       y: 720, // Adjust the y position as needed
-      size: 27, // Adjust the font size as needed
+      size: 25, // Adjust the font size as needed
       color: rgb(0, 0, 0), // Black color
       font: await pdfDoc.embedFont(StandardFonts.Helvetica),
       lineHeight: 12,
@@ -72,20 +85,32 @@ const Feedback = () => {
 
     // Add the main content to the PDF
     const mainContent1 = "User's First Name:  " + userData.fname;
-    page.drawText(mainContent1, { x: 50, y: 665, size: 23, color: rgb(0, 0, 0) });
+    page.drawText(mainContent1, { x: 50, y: 665, size: 20, color: rgb(0, 0, 0) });
 
     const mainContent2 = "User's Last Name:  " + userData.lname;
-    page.drawText(mainContent2, { x: 50, y: 645, size: 23, color: rgb(0, 0, 0) });
+    page.drawText(mainContent2, { x: 50, y: 645, size: 20, color: rgb(0, 0, 0) });
 
     const mainContent3 = "User's Email:  " + userData.email;
-    page.drawText(mainContent3, { x: 50, y: 625, size: 23, color: rgb(0, 0, 0) });
+    page.drawText(mainContent3, { x: 50, y: 625, size: 20, color: rgb(0, 0, 0) });
 
     const feedbackContent = feedback.map((fb) => {
       return `\nReciever: ${fb.reciever}\nAuthor: ${fb.author}\nFeedback: ${fb.feedbackText}`;
+    } );
+    
+    const invitationContent = invitation.map((i) => {
+      return `\nSender: ${i.email}\nInvitee: ${i.sender}\nMessage: ${i.message}`;
     });
     
     const mainContent4 = "Your Feedbacks: \n" + feedbackContent.join("\n");
-    page.drawText(mainContent4, { x: 50, y: 595, size: 20, color: rgb(0, 0, 0) });
+    page.drawText( mainContent4, {x: 50, y: 555, size: 20, color: rgb( 0, 0, 0 )} );
+    
+    const mainContent5 = "Your Invitations: \n" + invitationContent.join("\n");
+    page.drawText(mainContent5, {
+      x: 50,
+      y: 300,
+      size: 20,
+      color: rgb(0, 0, 0),
+    });
 
     const pdfBytes = await pdfDoc.save();
 
@@ -93,7 +118,7 @@ const Feedback = () => {
     const url = window.URL.createObjectURL(blob);
 
     // Set the default name for the downloaded PDF
-    const suggestedFileName = 'my_report.pdf';
+    const suggestedFileName = 'my_feedback_report.pdf';
 
     const downloadLink = document.createElement('a');
     downloadLink.href = url;
