@@ -26,20 +26,20 @@ const Filemanager = ({ onFileSelect }) => {
   };
 
   const extractCodeDetails = (content) => {
-    const keywordsRegex = /\b(const|let|var|function|if|else|while|for|switch|case|break|return|try|catch|finally|throw)\b/g;
+    const keywordsRegex =
+      /\b(const|let|var|function|if|else|while|for|switch|case|break|return|try|catch|finally|throw)\b/g;
     const variablesRegex = /(\w+)\s*=/g;
-  
+
     const keywordsMatches = content.match(keywordsRegex);
     const variablesMatches = content.match(variablesRegex);
-  
+
     const keywords = keywordsMatches ? keywordsMatches : [];
     const variables = variablesMatches
-      ? variablesMatches.map((match) => match.replace(/\s*=/, ''))
+      ? variablesMatches.map((match) => match.replace(/\s*=/, ""))
       : [];
-  
+
     return { keywords, variables };
   };
-  
 
   useEffect(() => {
     axios
@@ -74,17 +74,33 @@ const Filemanager = ({ onFileSelect }) => {
   };
 
   const handleDeleteFile = (fileId) => {
-    if (window.confirm("Are you sure you want to delete the file?")) {
-      axios
-        .delete(`http://localhost:5000/api/files/${fileId}`)
-        .then(() => {
-          setFiles((prevFiles) =>
-            prevFiles.filter((file) => file._id !== fileId)
-          );
-          toast.success("File deleted successfully!");
-        })
-        .catch((error) => console.error("Error deleting file:", error));
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:5000/api/files/${fileId}`)
+          .then(() => {
+            setFiles((prevFiles) =>
+              prevFiles.filter((file) => file._id !== fileId)
+            );
+            toast.success("File deleted successfully!");
+          })
+          .catch((error) => console.error("Error deleting file:", error));
+  
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        );
+      }
+    });
   };
 
   const handleCreateFile = () => {
@@ -232,32 +248,33 @@ const Filemanager = ({ onFileSelect }) => {
 
           <ToastContainer />
         </div>
-
-        <ul>
-          {files.map((file) => (
-            <li
-              key={file._id}
-              className={`text-light mt-2 mb-2 filenames-delete ${
-                selectedFileId === file._id ? "selected-file" : ""
-              }`}
-            >
-              <button
-                id="filename"
-                className="btn text-light"
-                onClick={() => handleFileClick(file._id)}
-              >
-                <div>• {file.name}</div>
-              </button>{" "}
-              <button
-                className="btn btnd"
-                id="deletebtn"
-                onClick={() => handleDeleteFile(file._id)}
-              >
-                <Trash3Fill className="trashbtn" />
-              </button>
-            </li>
-          ))}
-        </ul>
+        <div className="fildiv">
+          <ul>
+            {files.map((file) => (
+              <li
+                key={file._id}
+                className={`text-light mt-2 mb-2 filenames-delete ${
+                  selectedFileId === file._id ? "selected-file" : ""
+                }`}
+              > 
+                <button
+                  id="filename"
+                  className="btn text-light"
+                  onClick={() => handleFileClick(file._id)}
+                >
+                  <div>• {file.name}</div>
+                </button>{" "}
+                <button
+                  className="btn btnd"
+                  id="deletebtn"
+                  onClick={() => handleDeleteFile(file._id)}
+                >
+                  <Trash3Fill className="trashbtn" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
         <br />
         <br />
         <div className="details">
@@ -288,7 +305,11 @@ const Filemanager = ({ onFileSelect }) => {
               </div>{" "}
             </div>
           )}
-          <button onClick={() => handleGenerateReport(content)} className = "btn" id="genbtn">
+          <button
+            onClick={() => handleGenerateReport(content)}
+            className="btn"
+            id="genbtn"
+          >
             Generate Report
           </button>
         </div>
