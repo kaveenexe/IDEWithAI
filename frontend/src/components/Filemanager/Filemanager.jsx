@@ -166,7 +166,7 @@ const Filemanager = ({ onFileSelect }) => {
 
     const headerText2 = "File Report";
     page.drawText(headerText2, {
-      x: 210,
+      x: 240,
       y: 310, // Adjust the y position as needed
       size: 30, // Adjust the font size as needed
       color: rgb(0, 0, 0), // Black color
