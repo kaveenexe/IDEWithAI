@@ -57,6 +57,7 @@ const Feedback = () => {
         </p>
         <Card>
           <Card.Body>
+          <div style={{ overflow: 'auto', maxHeight: '250px' }}>
             <table className="table">
               <thead className="thead">
                 <tr>
@@ -83,6 +84,7 @@ const Feedback = () => {
                 ))}
               </tbody>
             </table>
+            </div>
           </Card.Body>
         </Card>
       </div>
