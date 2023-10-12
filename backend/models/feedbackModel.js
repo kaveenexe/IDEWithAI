@@ -4,11 +4,11 @@ const feedbackSchema = new mongoose.Schema(
   {
     author: {
       type: String,
-      // required: true,
+      required: true,
     },
     reciever: {
       type: String,
-      // required: true,
+      required: true,
     },
     feedbackText: {
       type: String,

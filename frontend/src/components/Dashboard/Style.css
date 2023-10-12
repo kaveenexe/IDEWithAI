@@ -22,16 +22,15 @@
 }
 
 .table .thead tr th:nth-child(1){
-  max-width: 100px;
+  width: 35%;
 }
 
 .table .thead tr th:nth-child(2){
-  min-width: 316px;
+  width: 40%;
 }
 
 .table .thead tr th:nth-child(3){
-  min-width: 70px;
-  text-align: center;
+  width: 15%;
 }
 
 .deleteIcon {

@@ -29,8 +29,7 @@ const Invitation = () => {
 
   useEffect(() => {
     axios
-      //.get(`http://localhost:5000/api/invitation/${userData.email}`)
-      .get("http://localhost:5000/api/invitation/gehan@gmail.com")
+      .get(`http://localhost:5000/api/invitation/${userData.email}`)
       .then((response) => {
         setInvitation(response.data);
       })
@@ -74,13 +73,19 @@ const Invitation = () => {
   // Hnadle the Submit Feedback Button
   const handleFeedbackSend = () =>
   {
-    const formData = new FormData();
+    // const formData = new FormData();
     // formData.append("author", author);
     // formData.append("reciever", reciever);
-    formData.append("feedbackText", feedbackText);
+    // formData.append("feedbackText", feedbackText);
+
+    const feedbackData = {
+      author,
+      reciever,
+      feedbackText,
+    };
 
     axios
-      .post("http://localhost:5000/api/feedback/submit-feedback", formData)
+      .post("http://localhost:5000/api/feedback/submit-feedback", feedbackData)
       .then((response) => {
         console.log("Feedback Sent Successfully...");
 
@@ -98,11 +103,11 @@ const Invitation = () => {
       })
       .catch((error) => {
         console.error("Error sending feedback:", error);
-        // Swal.fire({
-        //   title: "Oops!",
-        //   text: "Feedback Sending Failed!",
-        //   icon: "error",
-        // });
+        Swal.fire({
+          title: "Oops!",
+          text: "Feedback Sending Failed!",
+          icon: "error",
+        });
       });
   };
 
