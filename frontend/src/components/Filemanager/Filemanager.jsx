@@ -148,7 +148,7 @@ const Filemanager = ({ onFileSelect }) => {
       font: await pdfDoc.embedFont(StandardFonts.Helvetica),
     });
 
-    const headerText2 = "File's Report";
+    const headerText2 = `${report.fileName}'s Report`;
     page.drawText(headerText2, {
       x: 210,
       y: 310, // Adjust the y position as needed
